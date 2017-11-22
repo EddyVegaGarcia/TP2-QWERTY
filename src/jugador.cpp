@@ -2,7 +2,7 @@
 
 # include "jugador.h"
 # include <iostream>
-using namespace std;
+
 
 
 // métodos púbicos
