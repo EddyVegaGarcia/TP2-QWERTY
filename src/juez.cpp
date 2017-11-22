@@ -148,8 +148,6 @@ void Juez::inicializarJuego(){
 	terminoLaPartida();
 	encontrarJugadorQueGanoPorPuntaje();
 
-	//Jugador* jugadorGanador = encontrarJugadorQueGanoPorPuntaje();
-
 	crearArchivoConPuntajes();
 
 
