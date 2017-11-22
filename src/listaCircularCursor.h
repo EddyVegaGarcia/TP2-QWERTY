@@ -36,7 +36,7 @@ template<class T> class ListaCircularCursor{
 
 		//post: apunta el cursor al siguiente elemento
 		//		en caso de no estar inicializado, lo inicializa.
-		void avanzarCursor();
+		bool avanzarCursor();
 
 		T obtenerCursor();
 	
@@ -134,16 +134,17 @@ template<class T> void ListaCircularCursor<T>::inicializarCursor(){
 	this->cursor = NULL;
 }
 
-template<class T> void ListaCircularCursor<T>::avanzarCursor(){
+template<class T> bool ListaCircularCursor<T>::avanzarCursor(){
 
-	  if (this->cursor == NULL) {
-
-	        this->cursor = this->primero;
-
-	    } else {
-
-	        this->cursor = this->cursor->obtenerSiguiente();
+	if(this->cursor==NULL)
+	{
+		this->cursor=this->primero;
 	}
+	else
+	{
+		this->cursor=this->cursor->obtenerSiguiente();
+	}
+	return (this->cursor != NULL);
 }
 
 template<class T> T ListaCircularCursor<T>::obtenerCursor(){
