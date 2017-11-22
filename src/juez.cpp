@@ -57,6 +57,7 @@ void Juez::avanzarJugador(){
 
 void Juez::encontrarJugadorQueGanoPorPuntaje(){
 
+
 	jugadores->inicializarCursor();
 	Jugador* jugadorGanador;
 	int puntajeMaximo = PUNTAJE_MINIMO;
@@ -64,26 +65,21 @@ void Juez::encontrarJugadorQueGanoPorPuntaje(){
 	int puntajesMostrados=0;
 
 	int puntajesMaximosIguales=0;
-	int puntajeMaximoAnterior= PUNTAJE_MINIMO;
+
 
 	while(this->jugadores->avanzarCursor() && (puntajesMostrados < this->cantidadDeJugadores) ){
 
 		Jugador* jugadorActual;
 		jugadorActual = jugadores->obtenerCursor();
-		if(jugadorActual->obtenerPuntaje() > puntajeMaximo){
+		if(jugadorActual->obtenerPuntaje() > puntajeMaximo)
+		{
 			puntajeMaximo = jugadorActual->obtenerPuntaje();
 			jugadorGanador = jugadorActual;
-		}
-
-		puntajesMostrados++;
-
-
-		if(puntajeMaximoAnterior < puntajeMaximo){
-			puntajeMaximoAnterior = puntajeMaximo;
 			puntajesMaximosIguales=0;
 		}
-		else
-			puntajesMaximosIguales++;
+		else if(jugadorActual->obtenerPuntaje() == puntajeMaximo) puntajesMaximosIguales++;
+
+		puntajesMostrados++;
 
 	}
 
