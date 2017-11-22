@@ -80,14 +80,14 @@ void Jugador::iniciarJugada(){
 
 	puntos = this->pJugada->realizarJugada();
 	
-	if (puntos!=PERDIO_PARTIDA && puntos!=SE_RETIRO){
-		puntos += obtenerPuntaje();
-		this->modificarPuntaje(puntos);
-	}
-	else if (puntos == PERDIO_PARTIDA)
+	if (puntos == PERDIO_PARTIDA)
 		this->asignarEstado(PERDIO_PARTIDA);
 	else if (puntos == SE_RETIRO)
 		this->asignarEstado(SE_RETIRO);
+	else{
+		puntos += obtenerPuntaje();
+		this->modificarPuntaje(puntos);
+	}
 }
 
 Jugador::~Jugador(){
