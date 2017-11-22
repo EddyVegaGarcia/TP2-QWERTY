@@ -64,14 +64,14 @@ private:
 	
 	/* Pre: Recibe "jugadorActual", puntero a Jugador que ganó.
 	* Post: Muestra un mensaje de felicitaciones a "jugadorActual" con su puntaje.*/
-	void mostrarFelicitaciones(Jugador* jugadorActual);
+	void mostrarFelicitaciones(Jugador* jugadorActual , int puntajesMaximosIguales);
 
 	
 	
 	void crearArchivoConPuntajes();
 	
 	
-	Jugador* encontrarJugadorQueGanoPorPuntaje();
+	void encontrarJugadorQueGanoPorPuntaje();
 
 	/* Post: Emite un mensaje informando que el juego ha terminado.*/
 	void terminoLaPartida();
