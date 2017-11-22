@@ -22,7 +22,7 @@ void Menu::menuPrincipal(){
 		std::cout<<"1.JUGAR"<<std::endl;
 		std::cout<<"2.REGLAS"<<std::endl;
 		std::cout<<"3.SALIR DE MENU"<<std::endl;
-		std::cout<<".:ELIGA OPCION: ";
+		std::cout<<".:ELIJA OPCION: ";
 		std::cin>>opcion;
 
 		if(opcion == 1){
