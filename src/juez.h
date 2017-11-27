@@ -7,12 +7,14 @@
 # include "listaCircularCursor.h"
 # include <iostream>
 # include <fstream>
+# include "pseudoGrafo.h"
 
 class Juez{
 
 private:
 	int cantidadDeJugadores;
 	ListaCircularCursor<Jugador*>* jugadores;
+	PseudoGrafo<Jugada*>* jugadas;
 	Mapa* tableroDeJuego;
 	int jugadoresQuePerdieron;
 	uint casillasOcultas;
@@ -44,6 +46,9 @@ private:
 	
 	/* Pre: Se ha llamado a crearYAsignarListaDeJugadores(). Recibe un puntero a un Jugador.
 	* Post: Inserta "nuevo" a la lista de jugadores creada por crearYAsignarListaDeJugadores().*/
+
+	void crearYAsignarGrafoDeJugadas();
+
 	void insertarJugador(Jugador* nuevo);
 	
 	/* Post: avanza hasta el jugador más próximo que siga jugando.*/
@@ -79,6 +84,10 @@ private:
 	uint buscarBanderasCorrectas();
 
 	bool banderaEsCorrecta(Bandera actual,Lista<Mina>* minas);
+
+	void realizarCambios();
+
+	void deshacerJugada();
 };
 
 #endif /* JUEZ_H_ */
