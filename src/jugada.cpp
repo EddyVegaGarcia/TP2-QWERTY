@@ -11,6 +11,15 @@ using namespace std;
 		this->opcion=NADA;
 	}
 
+	int Jugada::obtenerFila(){
+		return this->fila;
+	}
+	int Jugada::obtenerColumna(){
+		return this->columna;
+	}
+	char Jugada::obtenerOpcion(){
+		return this->opcion;
+	}
 	void Jugada::asignarOpcion(char opcionDeUsuario){
 	    
 		this->opcion = opcionDeUsuario;
