@@ -24,6 +24,8 @@ private:
 	 * Post: Crea un objeto Jugada y apunta pJugada a jugada.*/
 	void inicializarPunteroAJugada(Mapa* punteroAMapa);
 	
+	bool PreguntarSiQuiereModificarJugadas();
+
 	
 	
 public:
@@ -55,6 +57,10 @@ public:
 	 * Post: Pide fila, columna y opcion al user y los asigna a la jugada.*/
 	void iniciarJugada();
 	
+	/* Post: Devuelve la ultima jugada realizada por el jugador
+	 */
+	Jugada* obtenerPJugada();
+
 	
 	
 	/*
