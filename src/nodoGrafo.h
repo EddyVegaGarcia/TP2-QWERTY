@@ -12,20 +12,17 @@ class NodoGrafo
 		T dato;
 		NodoGrafo<T>* siguiente;
 		NodoGrafo<T>* anterior;
-		NodoGrafo<T>* siguienteAbajo;
-		NodoGrafo<T>* anteriorArriba;
+		NodoGrafo<T>* pararelo;
 	public:
 		NodoGrafo(T dato);
 		T obtenerDato();
 		void cambiarDato(T nuevoDato);
 		NodoGrafo<T>* obtenerSiguiente();
 		NodoGrafo<T>* obtenerAnterior();
-		NodoGrafo<T>* obtenerSiguienteAbajo();
-		NodoGrafo<T>* obtenerAnteriorArriba();
+		NodoGrafo<T>* obtenerParalelo();
 		void cambiarSiguiente(NodoGrafo<T>* nuevoSiguiente);
 		void cambiarAnterior(NodoGrafo<T>* nuevoAnterior);
-		void cambiarAnteriorArriba(NodoGrafo<T>* nuevoArriba);
-		void cambiarSiguienteAbajo(NodoGrafo<T>* nuevoAbajo);
+		void cambiarParalelo(NodoGrafo<T>* nuevoPararelo);
 };
 
 
@@ -35,8 +32,7 @@ NodoGrafo<T>::NodoGrafo(T dato)
 	this->dato=dato;
 	this->siguiente=NULL;
 	this->anterior=NULL;
-	this->siguienteAbajo=NULL;
-	this->anteriorArriba=NULL;
+	this->pararelo=NULL;
 }
 
 template<class T>
@@ -64,15 +60,9 @@ NodoGrafo<T>* NodoGrafo<T>::obtenerAnterior()
 }
 
 template<class T>
-NodoGrafo<T>* NodoGrafo<T>::obtenerAnteriorArriba()
+NodoGrafo<T>* NodoGrafo<T>::obtenerPararelo()
 {
-	return this->anteriorArriba;
-}
-
-template<class T>
-NodoGrafo<T>* NodoGrafo<T>::obtenerSiguienteAbajo()
-{
-	return this->siguienteAbajo;
+	return this->pararelo;
 }
 
 template<class T>
@@ -88,15 +78,10 @@ void NodoGrafo<T>::cambiarAnterior(NodoGrafo<T>* nuevoAnterior)
 }
 
 template<class T>
-void NodoGrafo<T>::cambiarSiguienteAbajo(NodoGrafo<T>* nuevoSiguienteAbajo)
+void NodoGrafo<T>::cambiarParalelo(NodoGrafo<T>* nuevoParalelo)
 {
-	this->siguienteAbajo=nuevoSiguienteAbajo;
+	this->paralelo=nuevoPararelo;
 }
 
-template<class T>
-void NodoGrafo<T>::cambiarAnteriorArriba(NodoGrafo<T>* nuevoAnteriorArriba)
-{
-	this->anteriorArriba=nuevoAnteriorArriba;
-}
 
 #endif /* NODOGRAFO_H_ */
