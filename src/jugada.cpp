@@ -59,3 +59,12 @@ using namespace std;
 		}
 		return puntos;
 	}
+        bool Jugada:: operator = (Jugada a, Jugada b)  { 
+   		bool sonIguales = false;
+		if((a.obtenerFila == b.obtenerFila)&&(a.obtenerColumna == b.obtenerColumna)&&
+		     					(a.obtenerOpcion == b.obtenerOpcion)){
+			sonIguales = true;
+		
+		}
+   	return sonIguales; 
+	}
