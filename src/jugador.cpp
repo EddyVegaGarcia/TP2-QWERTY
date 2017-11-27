@@ -61,7 +61,7 @@ bool Jugador::validarOpcionUserTiempo(char opcionUser)
 	return(opcionUser != 'f' || opcionUser != 'F' || opcionUser != 'p' || opcionUser != 'P');
 }
 
-char pedirOpcionUser()
+char Jugador::pedirOpcionUser()
 {
 	char opcionUser;
 	
