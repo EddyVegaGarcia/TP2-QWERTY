@@ -16,6 +16,7 @@ const int SIGUE_JUGANDO = 0;
 const int HA_GANADO = 1;
 const int NO_ESTA_JUGANDO = 5;
 const int PUNTAJE_MINIMO=-123456;
+const int REALIZANDO_CAMBIOS = -1;
 
 const uint FACIL=10;
 const uint MEDIO=20;
