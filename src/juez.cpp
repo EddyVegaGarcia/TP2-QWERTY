@@ -1,10 +1,8 @@
 #include "juez.h"
 
-
-
-
-
-Juez::Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido){
+Juez::Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido)
+{
+	
 	this->cantidadDeJugadores = cantidadJugadores;
 	this->tableroDeJuego = mapaRecibido;
 	this->jugadoresQuePerdieron = 0;
@@ -15,28 +13,30 @@ Juez::Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido){
 
 }
 
-void Juez::crearYAsignarListaDeJugadores(){
-
+void Juez::crearYAsignarListaDeJugadores()
+{
 	this-> jugadores =  new ListaCircularCursor<Jugador*>;
 }
 
-void Juez::crearJugadores(){
+void Juez::crearJugadores()
+{
 	char alias = 'A';
 
-	for (int i=0; i<cantidadDeJugadores; i++){
+	for (int i=0; i<cantidadDeJugadores; i++)
+	{
 
 		Jugador* entrante = new Jugador(alias+i,tableroDeJuego);
 		this->jugadores->insertar(entrante);
 
 	}
-
-
+	
 	this->jugadores->inicializarCursor();
 }
 
 
 /* Avanzar jugador hasta un jugador que siga jugando.*/
-void Juez::avanzarJugador(){
+void Juez::avanzarJugador()
+{
 
 	Jugador* siguiente;
 	bool puedeJugar=false;
@@ -55,7 +55,8 @@ void Juez::avanzarJugador(){
 }
 
 
-void Juez::encontrarJugadorQueGanoPorPuntaje(){
+void Juez::encontrarJugadorQueGanoPorPuntaje()
+{
 
 
 	jugadores->inicializarCursor();
@@ -67,7 +68,8 @@ void Juez::encontrarJugadorQueGanoPorPuntaje(){
 	int puntajesMaximosIguales=0;
 
 
-	while(this->jugadores->avanzarCursor() && (puntajesMostrados < this->cantidadDeJugadores) ){
+	while(this->jugadores->avanzarCursor() && (puntajesMostrados < this->cantidadDeJugadores) )
+	{
 
 		Jugador* jugadorActual;
 		jugadorActual = jugadores->obtenerCursor();
@@ -87,14 +89,16 @@ void Juez::encontrarJugadorQueGanoPorPuntaje(){
 
 	
 }
-void Juez::crearArchivoConPuntajes(){
+void Juez::crearArchivoConPuntajes()
+{
 
 	std::ofstream puntajes(archivoDePuntajes);
 	int puntajesGuardados=0;
 
 	this->jugadores->inicializarCursor();
 
-       while(this->jugadores->avanzarCursor() && puntajesGuardados<cantidadDeJugadores){
+       	while(this->jugadores->avanzarCursor() && puntajesGuardados<cantidadDeJugadores)
+	{
 
 			char alias;
 			int puntaje;
@@ -105,14 +109,16 @@ void Juez::crearArchivoConPuntajes(){
 			puntajes << "el jugador .:" << alias << ":. obtuvo puntaje de: " << puntaje << std::endl;
 			puntajesGuardados++;
 	       
-       }	
+       	}	
 
-   puntajes.close();
+	puntajes.close();
 
 }
 
 
-void Juez::inicializarJuego(){
+void Juez::inicializarJuego()
+{
+	
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
 	this->minasPorDescubrir=tableroDeJuego->obtenerTamanioDeLaListaDeMinas();
 
@@ -126,14 +132,17 @@ void Juez::inicializarJuego(){
 	std::cout<<".:PLAY GAME::."<<std::endl;
 
 
-	while((jugadoresQuePerdieron<cantidadDeJugadores)&& (!terminoElJuego)){
+	while((jugadoresQuePerdieron<cantidadDeJugadores)&& (!terminoElJuego))
+	{
 
 		jugadorActual = this->jugadores->obtenerCursor();
 
 		if(this->casillasOcultas > this->minasPorDescubrir
-				&& banderasCorrectas<  this->minasPorDescubrir){
+				&& banderasCorrectas<  this->minasPorDescubrir)
+		{
 
-			if (jugadorActual->obtenerEstado() == SIGUE_JUGANDO){
+			if (jugadorActual->obtenerEstado() == SIGUE_JUGANDO)
+			{
 				sigueJugando(jugadorActual, tableroDeJuego);
 			}
 
@@ -154,11 +163,13 @@ void Juez::inicializarJuego(){
 }
 
 
-void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
+void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego)
+{
 
 	jugadorActual->iniciarJugada();
 
-	if(jugadorActual->obtenerEstado() == PERDIO_PARTIDA){
+	if(jugadorActual->obtenerEstado() == PERDIO_PARTIDA)
+	{
 
 		jugadoresQuePerdieron++;
 		this->minasPorDescubrir--;
@@ -166,13 +177,16 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 		jugadorActual->asignarEstado(NO_ESTA_JUGANDO);
 
 		mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual);
+		
 	}
+	
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
 	tableroDeJuego->mostrarMapa();
 
 }
 
-uint Juez::buscarBanderasCorrectas(){
+uint Juez::buscarBanderasCorrectas()
+{
 
 	uint cantidadBanderasCorrectas = 0;
 
@@ -186,7 +200,8 @@ uint Juez::buscarBanderasCorrectas(){
 
 	Bandera actual;
 
-	while(banderas->avanzarCursor()){
+	while(banderas->avanzarCursor())
+	{
 
 		actual = banderas->obtenerCursor();
 		if(banderaEsCorrecta(actual,minas))
@@ -196,28 +211,33 @@ uint Juez::buscarBanderasCorrectas(){
 	return cantidadBanderasCorrectas;
 }
 
-bool Juez::banderaEsCorrecta(Bandera actual,Lista<Mina>*minas){
+bool Juez::banderaEsCorrecta(Bandera actual,Lista<Mina>*minas)
+{
 
 	bool encontrada = false;
 	Mina compatible;
 
 	minas->iniciarCursor();
 
-	while(minas->avanzarCursor() && !encontrada){
+	while(minas->avanzarCursor() && !encontrada)
+	{
 
 		compatible = minas->obtenerCursor();
 
 		if(actual.obtenerFila() == compatible.obtenerFila() &&
 				actual.obtenerColumna() == compatible.obtenerColumna())
-
+		{
 			encontrada = true;
+		}
 
 	}
 
 	return encontrada;
 }
 
-void Juez::mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual){
+void Juez::mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual)
+{
+	
 	int puntaje = 0;
 	char alias;
 	alias = jugadorActual->obtenerAlias();
@@ -228,13 +248,17 @@ void Juez::mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual){
 
 }
 
-void Juez::terminoLaPartida(){
+void Juez::terminoLaPartida()
+{
+	
 	std::cout<<std::endl;
 	std::cout << "\t\t\t.:GAME OVER:." << std::endl;
 	std::cout<<std::endl;
+	
 }
 
-void Juez::mostrarFelicitaciones(Jugador* jugadorActual, int puntajesMaximosIguales){
+void Juez::mostrarFelicitaciones(Jugador* jugadorActual, int puntajesMaximosIguales)
+{
 
 	if(puntajesMaximosIguales == 0){
 		std::cout << jugadorActual->obtenerAlias() << "!!! GANASTE !!!" << std::endl;
@@ -245,14 +269,18 @@ void Juez::mostrarFelicitaciones(Jugador* jugadorActual, int puntajesMaximosIgua
 		std::cout<<"SE OBTUVO UN EMPATE... INTENTEN DE NUEVO."<<std::endl;
 
 	std::cout<<std::endl;
+	
 }
 
 
-Juez::~Juez(){
+Juez::~Juez()
+{
+	
 	this->jugadores->inicializarCursor();
 	Jugador* jugadorActual;
 
-	while( this->jugadores->avanzarCursor() && !(this->jugadores->estaVacia()) ){
+	while( this->jugadores->avanzarCursor() && !(this->jugadores->estaVacia()) )
+	{
 
 		jugadorActual = this->jugadores->obtenerCursor();
 		Jugador* jugadorABorrar;
@@ -268,7 +296,9 @@ Juez::~Juez(){
 
 		delete jugadorABorrar;
 		this->jugadores->remover(1);
+		
 	}
+	
 	delete this->jugadores;
 
 }
