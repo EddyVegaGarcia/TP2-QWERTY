@@ -1,109 +1,99 @@
+#ifndef LISTA_H_
+#define LISTA_H_
+
+#include <iostream>
+#include "nodoGrafo.h"
+
+template <class T>
+
+
 class lista {
    public:
-    lista() : plista(NULL) {}
+    lista();
     ~lista();
     
-    void Insertar(int v);
-    void Borrar(int v);
-    bool ListaVacia() { return plista == NULL; } 
-    void Mostrar(int);
-    void Siguiente();
-    void Anterior();
+    void Insertar(T dato);
+    void Borrar(T dato);
+    bool ListaVacia() { return primero == NULL; } 
     void Primero();
-    void Ultimo();
-    bool Actual() { return plista != NULL; }
-    int ValorActual() { return plista-&gt;valor; }
+    bool Actual() { return primero != NULL; }
+ 
     
    private:
-    pnodo plista;
+   
+    NodoGrafo<Jugada>* primero; 
+    
 };
 
-lista::~lista() {
-   pnodo aux;
+template <class T>
+ListaDoble<T>::ListaDoble()
+{
+		this->primero=NULL;
+		
+}
+
+template <class T>
+listaDoble::~listaDoble() {
+   NodoGrafo<T> aux;
    
    Primero();
-   while(plista) {
-      aux = plista;
-      plista = plista->siguiente;
+   while(primero) {
+      aux = primero;
+      primero = primero->obtenerSiguiente;
       delete aux;
    }
 }
 
-void lista::Insertar(int v) {
-   pnodo nuevo;
+template <class T>
+void listaDoble::Insertar(T dato) {
+   NodoGrafo<T> nuevo;
  
    Primero();
+   nuevo = new nodoGrafo(dato);
    // Si la lista está vacía
-   if(ListaVacia() || plista->valor > v) {
+   
+   if(ListaVacia()) {
       // Asignamos a lista un nuevo nodo de valor v y
       // cuyo siguiente elemento es la lista actual                    
-      nuevo = new nodo(v, plista);
-      if(!plista) plista = nuevo;
-      else plista->anterior = nuevo;
+      
+      nuevo->cambiarAnterior(primero);
+      nuevo->cambiarSiguiente(primero);
+      primero = nuevo;
+      
+      
+      
    }
    else {
-      // Buscar el nodo de valor menor a v 
-      // Avanzamos hasta el último elemento o hasta que el siguiente tenga 
-      // un valor mayor que v 
-      while(plista->siguiente && plista->siguiente->valor <= v) Siguiente();
-      // Creamos un nuevo nodo después del nodo actual
-      nuevo = new nodo(v, plista->siguiente, plista);
-      plista->siguiente = nuevo;
-      if(nuevo->siguiente) nuevo->siguiente->anterior = nuevo;
+      NodoGrafo<T> primeroAntiguo;
+       primeroAntiguo = primero
+     primero->cambiarAnterior = nuevo;
+      nuevo->cambiarSiguiente(primero);
+      nuevo->cambiarAnterior(primero->obtenerAnterior);
+      primero = nuevo;
    }
 }
-
-void lista::Borrar(int v) {
-   pnodo nodo;
+template <class T>
+void lista::Borrar(T dato) {
+   nodoGrafo<T> nodo;
    
-   nodo = plista;
-   while(nodo && nodo->valor < v) nodo = nodo->siguiente;
-   while(nodo && nodo->valor > v) nodo = nodo->anterior;
-
-   if(!nodo || nodo->valor != v) return;
-   // Borrar el nodo 
-   
-   if(nodo->anterior) // no es el primer elemento 
-      nodo->anterior->siguiente = nodo->siguiente;
-   if(nodo->siguiente) // no el el último nodo
-      nodo->siguiente->anterior = nodo->anterior;
-   delete nodo;
-}
-
-void lista::Mostrar(int orden) {
-   pnodo nodo;
-   if(orden == ASCENDENTE) {
-      Primero();
-      nodo = plista;
-      while(nodo) {
-         cout << nodo->valor << "-> ";
-         nodo = nodo->siguiente;
+   nodo = primero;
+      while( nodo && nodo->obtenerDato != dato) 
+         nodo = nodo->obtenerSiguiente;
+      if(nodo->obtenerDato == dato){
+         nodoGrafo<T> anterior = nodo->obtenerAnterior;
+         nodoGrafo<T> siguiente = nodo->obtenerSiguiente;
+         anterior->cambiarSiguiente(siguiente);
+         siguiente->cambiarAnterior(anterior);
+         delete nodo;
       }
-   }
-   else {
-      Ultimo();
-      nodo = plista;
-      while(nodo) {
-         cout << nodo->valor << "-> ";
-         nodo = nodo->anterior;
-      }
-   }
-   cout << endl;
+
 }
 
-void lista::Siguiente() {
-   if(plista) plista = plista->siguiente;
-}
 
-void lista::Anterior() {
-   if(plista) plista = plista->anterior;
-}
+
 
 void lista::Primero() {
-   while(plista && plista->anterior) plista = plista->anterior;
+   while(primero && primero->anterior) primero = primero->anterior;
 }
 
-void lista::Ultimo() {
-   while(plista && plista->siguiente) plista = plista->siguiente;
-}
 
