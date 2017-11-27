@@ -50,13 +50,57 @@ void Jugador::inicializarPunteroAJugada(Mapa* punteroAMapa){
 	this->pJugada = new Jugada(punteroAMapa);
 }
 
+/*
+bool Jugador::validarOpcionUser( char opcionUser)
+{
+	return (opcionUser != 'd' || opcionUser != 'D' || opcionUser != 'm' || opcionUser != 'M' || opcionUser != 'r' || opcionUser != 'R');
+}
+
+bool Jugador::validarOpcionUserTiempo(char opcionUser)
+{
+	return(opcionUser != 'f' || opcionUser != 'F' || opcionUser != 'p' || opcionUser != 'P');
+}
+
+char pedirOpcionUser()
+{
+	char opcionUser;
+	
+	if(pListaJugada==NULL)
+	{
+		do{
+			std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
+			std::cin >>opcionUser;
+		}while(validarOpcionUser());
+	}
+	
+	else if(validarVAP())
+	{
+		do{
+			std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' (retirarse) "<<std::endl;
+			std::cout<<" || ´p´ (quitar jugada anterior) || 'f' (volver a colocar jugada eliminada)"<<std::endl;
+			std::cin >>opcionUser;
+		}while(validarOpcionUser() || validarOpcionUserTiempo());
+	}
+	
+	else
+	{
+		do{
+			std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' (retirarse) "<<std::endl;
+			std::cout<<" || ´p´ (quitar jugada anterior)"<<std::endl;
+			std::cin >>opcionUser;
+		}while(validarOpcionUser() || validarOpcionUserTiempo());
+	}
+	
+	return opcionUser;
+}
+*/
 
 void Jugador::iniciarJugada(){
 	uint filaUser, colUser;
 	char opcionUser;
-    int puntos = 0;
+	int puntos = 0;
 
-    std::cout<<std::endl;
+	std::cout<<std::endl;
 	std::cout << "TURNO JUGADOR: \t"<< this->alias << std::endl;
 	do{
 
@@ -65,6 +109,10 @@ void Jugador::iniciarJugada(){
 		std::cout<<std::endl;
 
 	} while( (filaUser<1 || filaUser> mapa->obtenerFila()) || (colUser<1 || colUser > mapa->obtenerColumna()));
+
+	/*
+	opcionUser = pedirOpcionUser();	
+	*/
 	std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
 	std::cin >>opcionUser;
 	std::cout<<std::endl;
@@ -79,7 +127,7 @@ void Jugador::iniciarJugada(){
 
 
 	puntos = this->pJugada->realizarJugada();
-	
+
 	if (puntos == PERDIO_PARTIDA)
 		this->asignarEstado(PERDIO_PARTIDA);
 	else if (puntos == SE_RETIRO)
