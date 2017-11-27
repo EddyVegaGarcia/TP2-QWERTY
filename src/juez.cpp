@@ -8,6 +8,7 @@ Juez::Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido)
 	this->jugadoresQuePerdieron = 0;
 	
 	crearYAsignarListaDeJugadores();
+	crearYAsignarGrafoDeJugadas();
 	
 	crearJugadores();
 
@@ -16,6 +17,10 @@ Juez::Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido)
 void Juez::crearYAsignarListaDeJugadores()
 {
 	this-> jugadores =  new ListaCircularCursor<Jugador*>;
+}
+void Juez::crearYAsignarGrafoDeJugadas(){
+
+	this-> jugadas = new PseudoGrafo<Jugada*>();
 }
 
 void Juez::crearJugadores()
@@ -163,10 +168,19 @@ void Juez::inicializarJuego()
 }
 
 
-void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego)
-{
+void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
+
+	Jugada* jugadaActual;
 
 	jugadorActual->iniciarJugada();
+	jugadaActual = jugadorActual->obtenerPJugada();
+
+	while(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
+
+		realizarCambios();
+		jugadorActual->iniciarJugada();
+		jugadaActual = jugadorActual->obtenerPJugada();
+	}
 
 	if(jugadorActual->obtenerEstado() == PERDIO_PARTIDA)
 	{
@@ -180,9 +194,47 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego)
 		
 	}
 	
+	this->jugadas->insertar(jugadaActual);
+
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
 	tableroDeJuego->mostrarMapa();
 
+}
+
+void Juez::realizarCambios(){
+
+	bool terminoDeHacerCambios = false;
+	char opcionDeUsuario;
+
+	while (!terminoDeHacerCambios){
+
+		std::cout<<"ingrese 'p' para deshacer la jugada actual"<<std::endl;
+		std::cout<<"ingrese 'f' para rehacer alguna de las jugadas desde este punto"<<std::endl;
+		std::cout<<"ingrese cualquier otra letra para dejar de realizar cambios en las jugadas"<<std::endl;
+
+		std::cin>>opcionDeUsuario;
+
+		if(opcionDeUsuario == 'p' || opcionDeUsuario == 'P')
+			deshacerJugada();
+		else if(opcionDeUsuario == 'f' || opcionDeUsuario == 'F')
+			//rehacerJugada();
+			;
+		else terminoDeHacerCambios = true;
+	}
+}
+
+void Juez::deshacerJugada(){
+
+	Jugada* jugadaABorrar = this->jugadas->obtenerDatoActual();
+	char opcion = jugadaABorrar->obtenerOpcion();
+
+	if (opcion == 'm' || opcion == 'M'){
+		Marcador inverso(tableroDeJuego);
+		inverso.marcar(jugadaABorrar->obtenerFila(),jugadaABorrar->obtenerColumna());
+
+	}
+
+	this->jugadas->retrocederCursor();
 }
 
 uint Juez::buscarBanderasCorrectas()
@@ -300,6 +352,4 @@ Juez::~Juez()
 	}
 	
 	delete this->jugadores;
-
 }
-
