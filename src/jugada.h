@@ -55,7 +55,7 @@ class Jugada{
 		//devolverá el puntaje ganado con la jugada hecha.
 		int realizarJugada();
 			
-		bool operator = ();
+		bool operator ==();
 			
 };
 
