@@ -55,6 +55,16 @@ public:
 	 * Post: Pide fila, columna y opcion al user y los asigna a la jugada.*/
 	void iniciarJugada();
 	
+	
+	
+	/*
+	bool validarOpcionUser(char opcionUser);
+	bool validarOpcionUserTiempo(char opcionUser);
+	char pedirOpcionUser();
+	*/
+	
+	
+	
 	/* Post: Libera los recursos asociados al Jugador. */
 	~Jugador();
 
