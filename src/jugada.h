@@ -18,7 +18,18 @@ class Jugada{
 		Mapa* mapa;
 		
 	public:
+	 
 	
+		//pre:
+		//post: devuelve la fila actual
+		int obtenerFila();
+	
+		//pre:
+		//post: devuelve la columna actual
+	      	int obtenercolumna();
+		//pre:
+		//post: devuelve la opcion actual
+		char obtenerOpcion(){
 		//pre: recibe como parámetro un puntero al mapa de juego.
 		//post: crea una jugada que se realizará en el mapa.
 		Jugada(Mapa* mapa);
@@ -43,6 +54,8 @@ class Jugada{
 		//decir, se destapará la casilla, se marcará ésta, o se retirará el jugador, se 
 		//devolverá el puntaje ganado con la jugada hecha.
 		int realizarJugada();
+			
+		bool operator + ();
 			
 };
 
