@@ -97,48 +97,74 @@ char Jugador::pedirOpcionUser()
 
 void Jugador::iniciarJugada(){
 	uint filaUser, colUser;
+	bool quiereModificarJugadas = false;
 	char opcionUser;
 	int puntos = 0;
 
 	std::cout<<std::endl;
 	std::cout << "TURNO JUGADOR: \t"<< this->alias << std::endl;
-	do{
 
-		std::cout<<"Ingrese fila y columna a jugar: "<<std::endl;
-		std::cin>>filaUser>>colUser;
+	quiereModificarJugadas = PreguntarSiQuiereModificarJugadas();
+
+	if (quiereModificarJugadas){
+
+		this->asignarEstado(REALIZANDO_CAMBIOS);
+	}
+	else{
+		do{
+
+			std::cout<<"Ingrese fila y columna a jugar: "<<std::endl;
+			std::cin>>filaUser>>colUser;
+			std::cout<<std::endl;
+
+		} while( (filaUser<1 || filaUser> mapa->obtenerFila()) || (colUser<1 || colUser > mapa->obtenerColumna()));
+
+		/*
+		opcionUser = pedirOpcionUser();
+		*/
+		std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
+		std::cin >>opcionUser;
 		std::cout<<std::endl;
 
-	} while( (filaUser<1 || filaUser> mapa->obtenerFila()) || (colUser<1 || colUser > mapa->obtenerColumna()));
+		// validar // debug // ver
 
-	/*
-	opcionUser = pedirOpcionUser();	
-	*/
-	std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
-	std::cin >>opcionUser;
-	std::cout<<std::endl;
+		this->pJugada->asignarOpcion(opcionUser);
 
-	// validar // debug // ver
-	this->pJugada->asignarOpcion(opcionUser);
+		this->pJugada->asignarFila(filaUser);
 
-	this->pJugada->asignarFila(filaUser);
+		this->pJugada->asignarColumna(colUser);
 
-	this->pJugada->asignarColumna(colUser);
+		puntos = this->pJugada->realizarJugada();
 
-
-
-	puntos = this->pJugada->realizarJugada();
-
-	if (puntos == PERDIO_PARTIDA)
-		this->asignarEstado(PERDIO_PARTIDA);
-	else if (puntos == SE_RETIRO)
-		this->asignarEstado(SE_RETIRO);
-	else{
-		puntos += obtenerPuntaje();
-		this->modificarPuntaje(puntos);
+		if (puntos == PERDIO_PARTIDA)
+			this->asignarEstado(PERDIO_PARTIDA);
+		else if (puntos == SE_RETIRO)
+			this->asignarEstado(SE_RETIRO);
+		else{
+			puntos += obtenerPuntaje();
+			this->modificarPuntaje(puntos);
+		}
 	}
+}
+
+bool Jugador::PreguntarSiQuiereModificarJugadas(){
+
+	char opcionUser;
+
+	std::cout<<"ingrese 's' si quiere utilizar sus puntos en deshacer/rehacer jugadas"<<std::endl;
+	std::cout<<"ingrese cualquier otra tecla para realizar cambios en el tablero"<<std::endl;
+
+	std::cin>>opcionUser;
+
+	return ((opcionUser == 's') || (opcionUser == 'S'));
+}
+
+Jugada* Jugador::obtenerPJugada(){
+
+	return this-> pJugada;
+
 }
 
 Jugador::~Jugador(){
         delete pJugada;
 }
-
