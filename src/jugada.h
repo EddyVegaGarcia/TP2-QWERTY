@@ -29,7 +29,7 @@ class Jugada{
 	      	int obtenercolumna();
 		//pre:
 		//post: devuelve la opcion actual
-		char obtenerOpcion(){
+		char obtenerOpcion();
 		//pre: recibe como parámetro un puntero al mapa de juego.
 		//post: crea una jugada que se realizará en el mapa.
 		Jugada(Mapa* mapa);
