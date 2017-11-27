@@ -37,15 +37,6 @@ using namespace std;
 		this->columna = columnaDeUsuario;
 	
 	}
-	 bool Jugada::operator == ( Jugada b)  {
-	   	bool sonIguales = false;
-		if((this->fila == b.obtenerFila)&&(this->columna == b.obtenerColumna)&&
-			     					(this->opcion == b.obtenerOpcion)){
-			sonIguales = true;
-
-		}
-	   	return sonIguales;
-	}
   
 	int Jugada::realizarJugada(){
 		
@@ -68,11 +59,12 @@ using namespace std;
 		}
 		return puntos;
 	}
-      bool operator == (Jugada a , Jugada b){
-      	bool sonIguales = false;
-	if((a.obtenerFila == b.obtenerFila)&&(a.obtenerColumna == b.obtenerColumna)
-	                                         &&(a.obtenerOpcion == b.obtenerOpcion))
-       		sonIguales = true;
-	      
-	return sonIguales;      
-      }
+      bool Jugada::operator == ( Jugada b)  {
+	   bool sonIguales = false;
+		if((this->fila == b.obtenerFila)&&(this->columna == b.obtenerColumna)&&
+			     					(this->opcion == b.obtenerOpcion)){
+			 sonIguales = true;
+
+		}
+	   	return sonIguales;
+	}
