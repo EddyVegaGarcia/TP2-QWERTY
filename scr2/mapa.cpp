@@ -247,3 +247,28 @@ bool Mapa::estaDestapadaLaCasilla(unsigned int fila, unsigned int columna){
 	return seEncuentra;
 }
 
+void Mapa::eliminarCasillaDestapada(unsigned int fila, unsigned int columna){
+	
+	unsigned int posicion = 0;
+	
+	Buscador<Casilla> buscador(this->pCasillasDestapadas);
+	bool seEncuentra = buscador.buscar(fila,columna,posicion);
+	
+	this->pCasillasDestapadas->remover(posicion);
+	
+}
+
+void Mapa::eliminarCasillasDestapadasDesde(unsigned int fila, unsigned int columna){
+
+	unsigned int posicion = 0;
+	unsigned int cantidadABorrar = 0;
+	
+	Buscador<Casilla> buscador(this->pCasillasDestapadas);
+	bool seEncuentra = buscador.buscar(fila,columna,posicion);
+	
+	cantidadABorrar = this->pCasillasDestapadas->contarElementos()-posicion+1;
+	
+	for(int i=0;i<cantidadABorrar;i++)
+		this->pCasillasDestapadas->remover(posicion);
+	
+}
