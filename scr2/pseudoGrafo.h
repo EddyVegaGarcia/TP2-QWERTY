@@ -9,22 +9,23 @@
 
 template <class T> class PseudoGrafo{
 
-	private:
-		NodoGrafo<Jugada*>* primero;
-		NodoGrafo<Jugada*>* actual;
+private:
+	NodoGrafo<T>* primero;
+	NodoGrafo<T>* actual;
 
-	public:
-		PseudoGrafo();
-		/*
-		 * ingresa un dato como siguiente al actual, si el siguiente tiene paralelos, lo ingresa como
-		 * el ultimo de los paralelos, luego mueve el cursor actual a la nueva posicion.
-		 */
-		void insertar(T dato);
-	//	void insertarComoParalelo(T dato);
-		NodoGrafo<T>* obtenerActual();
-		bool estaVacia();
-		void retrocederCursor();
-		T obtenerDatoActual();
+public:
+	PseudoGrafo();
+	/*
+	 * ingresa un dato como siguiente al actual, si el siguiente tiene paralelos, lo ingresa como
+	 * el ultimo de los paralelos, luego mueve el cursor actual a la nueva posicion.
+	 */
+	void insertar(T dato);
+//	void insertarComoParalelo(T dato);
+	NodoGrafo<T>* obtenerActual();
+	bool estaVacia();
+	void retrocederCursor();
+	T obtenerDatoActual();
+	NodoGrafo<T>* obtenerPunteroNodoPrimero();
 
 };
 
@@ -41,37 +42,32 @@ void PseudoGrafo<T>::insertar(T dato){
 	NodoGrafo<T>* nuevo = new NodoGrafo<T>(dato);
 
 
-	if(primero == NULL){
+	if(primero == NULL){ //si la lista esta vacia
 
 		primero = nuevo;
 
 	}else if(actual->obtenerSiguiente() == NULL){ //si el actual no tiene siguiente
-	      NodoGrafo<T>* anterior = actual;
-	      anterior->cambiarSiguiente(nuevo);
-	      nuevo->cambiarAnterior(anterior);
-	}else{	//si el actual tiene siguiente, agregarlo como paralelo
-
+	      actual->cambiarSiguiente(nuevo);
+	      nuevo->cambiarAnterior(actual);
+	}else{									//si el actual tiene siguiente, agregarlo como paralelo
 		  NodoGrafo<T>* siguiente = actual ->obtenerSiguiente();
 		  NodoGrafo<T>* paraleloSiguiente;
 
 		  bool recorrido = false;
-
 		  do{
 			  if(siguiente->tieneParalelo()){
 				  paraleloSiguiente = siguiente->obtenerParalelo();
 			  }
 			  else recorrido = true;
-		  }while(!recorrido);
 
+
+		  }while(!recorrido);
 		  paraleloSiguiente->cambiarParalelo(nuevo);
 		  nuevo->cambiarAnterior(actual);
-
 	}
 	actual = nuevo;
 
 }
-
-
 template <class T>
 NodoGrafo<T>* PseudoGrafo<T>::obtenerActual(){
 
@@ -96,6 +92,12 @@ template <class T>
 void PseudoGrafo<T>::retrocederCursor(){
 
 	this->actual = this->actual->obtenerAnterior();
+}
+
+template <class T>
+NodoGrafo<T>* PseudoGrafo<T>::obtenerPunteroNodoPrimero(){
+
+	return this->primero;
 }
 
 
