@@ -8,13 +8,14 @@
 # include <iostream>
 # include <fstream>
 # include "pseudoGrafo.h"
+# include "jugadaLight.h"
 
 class Juez{
 	
 	private:
 		int cantidadDeJugadores;
 		ListaCircularCursor<Jugador*>* jugadores;
-		PseudoGrafo<Jugada*>* jugadas;
+		PseudoGrafo<JugadaLight>* jugadas;
 		Mapa* tableroDeJuego;
 		int jugadoresQuePerdieron;
 		uint casillasOcultas;
@@ -49,12 +50,12 @@ class Juez{
 		* Post: Inserta "nuevo" a la lista de jugadores creada por crearYAsignarListaDeJugadores().*/
 	
 		void crearYAsignarGrafoDeJugadas();
-	
+		void guardarJugada(Jugador* jugadorActual);
 		void insertarJugador(Jugador* nuevo);
 
 		/* Post: avanza hasta el jugador más próximo que siga jugando.*/
 		void avanzarJugador();
-	
+
 		//void mostrarJugador(); /* A esto si lo quieren usar para algo, hay que cambiarlo (es corito, pero no sé qué quieren mostrar)*/
 	
 
@@ -92,3 +93,4 @@ class Juez{
 };
 
 #endif /* JUEZ_H_ */
+
