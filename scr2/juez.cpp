@@ -6,7 +6,7 @@ Juez::Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido)
 	this->cantidadDeJugadores = cantidadJugadores;
 	this->tableroDeJuego = mapaRecibido;
 	this->jugadoresQuePerdieron = 0;
-
+	
 	crearYAsignarListaDeJugadores();
 	crearYAsignarGrafoDeJugadas();
 	
@@ -20,7 +20,7 @@ void Juez::crearYAsignarListaDeJugadores()
 }
 void Juez::crearYAsignarGrafoDeJugadas(){
 
-	this-> jugadas = new PseudoGrafo<JugadaLight>();
+	this-> jugadas = new PseudoGrafo<JugadaLight*>();
 }
 
 void Juez::crearJugadores()
@@ -102,36 +102,24 @@ void Juez::crearArchivoConPuntajes()
 
 	this->jugadores->inicializarCursor();
 
-	while(this->jugadores->avanzarCursor() && puntajesGuardados<cantidadDeJugadores)
+       	while(this->jugadores->avanzarCursor() && puntajesGuardados<cantidadDeJugadores)
 	{
 
-		char alias;
-		int puntaje;
-		Jugador* jugadorActual;
-		jugadorActual = jugadores->obtenerCursor();
-		alias = jugadorActual->obtenerAlias();
-		puntaje = jugadorActual->obtenerPuntaje();
-		puntajes << "el jugador .:" << alias << ":. obtuvo puntaje de: " << puntaje;
-		std::cout<<std::endl;
-		puntajesGuardados++;
-
-	}
-
+			char alias;
+			int puntaje;
+			Jugador* jugadorActual;
+			jugadorActual = jugadores->obtenerCursor();
+			alias = jugadorActual->obtenerAlias();
+			puntaje = jugadorActual->obtenerPuntaje();
+			puntajes << "el jugador .:" << alias << ":. obtuvo puntaje de: " << puntaje << std::endl;
+			puntajesGuardados++;
+	       
+       	}	
 
 	puntajes.close();
 
 }
-void Juez::guardarJugada(Jugador* jugadorActual){
 
-	Jugada* jugadaActual = jugadorActual->obtenerPJugada();
-	JugadaLight jugadaAIngresar = JugadaLight();
-	jugadaAIngresar.asignarOpcion(jugadaActual->obtenerOpcion());
-	jugadaAIngresar.asignarFila(jugadaActual->obtenerFila());
-	jugadaAIngresar.asignarColumna(jugadaActual->obtenerColumna());
-	jugadaAIngresar.asignarJugador(jugadorActual->obtenerAlias());
-
-	this->jugadas->insertar(jugadaAIngresar);
-}
 
 void Juez::inicializarJuego()
 {
@@ -161,7 +149,6 @@ void Juez::inicializarJuego()
 			if (jugadorActual->obtenerEstado() == SIGUE_JUGANDO)
 			{
 				sigueJugando(jugadorActual, tableroDeJuego);
-
 			}
 
 			banderasCorrectas = buscarBanderasCorrectas();
@@ -206,8 +193,28 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 		mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual);
 		
 	}
+	JugadaLight* jugadaLiviana = new JugadaLight(jugadaActual->obtenerOpcion(),jugadorActual->obtenerAlias(),
+			jugadaActual->obtenerFila(),jugadaActual->obtenerColumna());
 	
-	guardarJugada(jugadorActual);
+	this->jugadas->insertar(jugadaLiviana);
+
+	//ver las jugadas
+
+	bool termino = false;
+
+	std::cout<<"adentro de la lista estan:"<<std::endl;
+	NodoGrafo<JugadaLight*>* jugadaActualARecorrer = this->jugadas->obtenerPunteroNodoPrimero();
+	while(!termino){
+
+	JugadaLight* jugada = jugadaActualARecorrer->obtenerDato();
+
+	std::cout<<jugada->obtenerFila()<<" "<<jugada->obtenerColumna()<<std::endl;
+
+	if (jugadaActualARecorrer->obtenerSiguiente() == NULL)
+		termino = true;
+	else jugadaActualARecorrer = jugadaActualARecorrer->obtenerSiguiente();
+	}
+
 
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
 	tableroDeJuego->mostrarMapa();
@@ -225,6 +232,21 @@ void Juez::realizarCambios(){
 		std::cout<<"ingrese 'f' para rehacer alguna de las jugadas desde este punto"<<std::endl;
 		std::cout<<"ingrese cualquier otra letra para dejar de realizar cambios en las jugadas"<<std::endl;
 
+		std::cout<<"lista de banderas"<<std::endl;
+		Lista<Bandera>* banderas = this->tableroDeJuego->obtenerPunteroBanderas();
+		banderas->iniciarCursor();
+
+		Bandera actual;
+		JugadaLight* JActual=this->jugadas->obtenerDatoActual();
+		std::cout<<"Dato actual en el grafo: "<<JActual->obtenerFila()<<JActual->obtenerColumna()<<std::endl;
+		while(banderas->avanzarCursor()){
+
+			actual = banderas->obtenerCursor();
+
+			std::cout<<"fila: "<<actual.obtenerFila()<<"columna: "<<actual.obtenerColumna()<<"Se destapo: "<<std::endl;
+
+		}
+
 		std::cin>>opcionDeUsuario;
 
 		if(opcionDeUsuario == 'p' || opcionDeUsuario == 'P')
@@ -238,13 +260,15 @@ void Juez::realizarCambios(){
 
 void Juez::deshacerJugada(){
 
-	JugadaLight* jugadaABorrar = this->jugadas->obtenerDatoActual();
-	char opcion = jugadaABorrar->obtenerOpcion();
+	JugadaLight* jugadaADeshacer = this->jugadas->obtenerDatoActual();
+	char opcion = jugadaADeshacer->obtenerOpcion();
 
 	if (opcion == 'm' || opcion == 'M'){
 		Marcador inverso(tableroDeJuego);
-		inverso.marcar(jugadaABorrar->obtenerFila(),jugadaABorrar->obtenerColumna());
+		inverso.marcar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
 
+	}else if (opcion == 'd' || opcion == 'D'){
+		Destapador inverso(tableroDeJuego);
 	}
 
 	this->jugadas->retrocederCursor();
