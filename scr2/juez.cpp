@@ -6,7 +6,7 @@ Juez::Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido)
 	this->cantidadDeJugadores = cantidadJugadores;
 	this->tableroDeJuego = mapaRecibido;
 	this->jugadoresQuePerdieron = 0;
-	
+
 	crearYAsignarListaDeJugadores();
 	crearYAsignarGrafoDeJugadas();
 	
@@ -20,7 +20,7 @@ void Juez::crearYAsignarListaDeJugadores()
 }
 void Juez::crearYAsignarGrafoDeJugadas(){
 
-	this-> jugadas = new PseudoGrafo<Jugada*>();
+	this-> jugadas = new PseudoGrafo<JugadaLight>();
 }
 
 void Juez::crearJugadores()
@@ -121,7 +121,17 @@ void Juez::crearArchivoConPuntajes()
 	puntajes.close();
 
 }
+void Juez::guardarJugada(Jugador* jugadorActual){
 
+	Jugada* jugadaActual = jugadorActual->obtenerPJugada();
+	JugadaLight jugadaAIngresar = JugadaLight();
+	jugadaAIngresar.asignarOpcion(jugadaActual->obtenerOpcion());
+	jugadaAIngresar.asignarFila(jugadaActual->obtenerFila());
+	jugadaAIngresar.asignarColumna(jugadaActual->obtenerColumna());
+	jugadaAIngresar.asignarJugador(jugadorActual->obtenerAlias());
+
+	this->jugadas->insertar(jugadaAIngresar);
+}
 
 void Juez::inicializarJuego()
 {
@@ -151,6 +161,7 @@ void Juez::inicializarJuego()
 			if (jugadorActual->obtenerEstado() == SIGUE_JUGANDO)
 			{
 				sigueJugando(jugadorActual, tableroDeJuego);
+
 			}
 
 			banderasCorrectas = buscarBanderasCorrectas();
@@ -196,7 +207,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 		
 	}
 	
-	this->jugadas->insertar(jugadaActual);
+	guardarJugada(jugadorActual);
 
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
 	tableroDeJuego->mostrarMapa();
@@ -227,7 +238,7 @@ void Juez::realizarCambios(){
 
 void Juez::deshacerJugada(){
 
-	Jugada* jugadaABorrar = this->jugadas->obtenerDatoActual();
+	JugadaLight* jugadaABorrar = this->jugadas->obtenerDatoActual();
 	char opcion = jugadaABorrar->obtenerOpcion();
 
 	if (opcion == 'm' || opcion == 'M'){
