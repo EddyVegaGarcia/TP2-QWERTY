@@ -280,6 +280,7 @@ void Juez::deshacerJugada(){
 	char alias = jugadaADeshacer->obtenerJugador();
 	Jugador* jugadorActual;
 	this->iniciarCursor2;
+	int puntaje;
 
 	do{
 		this->avanzarCursor2;
@@ -290,8 +291,9 @@ void Juez::deshacerJugada(){
 	
 
 	if (opcion == 'm' || opcion == 'M'){
-		Marcador inverso(tableroDeJuego, jugadorActual);
-		inverso.marcar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
+		Marcador inverso(tableroDeJuego);
+		puntaje = inverso.marcar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
+		jugadorActual->modificarPuntaje(puntaje);
 
 	}else if (opcion == 'd' || opcion == 'D'){
 		AntiDestapador inverso(tableroDeJuego, jugadorActual);
