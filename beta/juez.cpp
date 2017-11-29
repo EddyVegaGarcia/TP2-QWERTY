@@ -294,7 +294,7 @@ void Juez::deshacerJugada(){
 		inverso.marcar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
 
 	}else if (opcion == 'd' || opcion == 'D'){
-		AntiDestapador inverso(tableroDeJuego, jugador);
+		AntiDestapador inverso(tableroDeJuego, jugadorActual);
 		inverso.tapar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
 	}
 
