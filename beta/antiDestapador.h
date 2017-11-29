@@ -22,7 +22,7 @@ private:
 
 public:
 
-	AntiDestapador(Mapa* mapaActual, char jugador);
+	AntiDestapador(Mapa* mapaActual, Jugador* jugador);
 
 	uint tapar(uint filaJugada,uint columnaJugada);
 
