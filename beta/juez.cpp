@@ -277,10 +277,20 @@ void Juez::deshacerJugada(){
 
 	JugadaLight* jugadaADeshacer = this->jugadas->obtenerDatoActual();
 	char opcion = jugadaADeshacer->obtenerOpcion();
-	char jugador = jugadaADeshacer->obtenerJugador();
+	char alias = jugadaADeshacer->obtenerJugador();
+	Jugador* jugadorActual;
+	this->iniciarCursor2;
+
+	do{
+		this->avanzarCursor2;
+		jugadorActual = this->obtenerCursor2;
+		
+	} while(jugadorActual->obtenerAlias != alias);
+	
+	
 
 	if (opcion == 'm' || opcion == 'M'){
-		Marcador inverso(tableroDeJuego);
+		Marcador inverso(tableroDeJuego, jugadorActual);
 		inverso.marcar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
 
 	}else if (opcion == 'd' || opcion == 'D'){
