@@ -14,7 +14,8 @@
 class AntiDestapador{
 
 private:
-
+	Juez* juez;
+	char jugador;
 	unsigned int fila;
 	unsigned int columna;
 	int puntaje;
