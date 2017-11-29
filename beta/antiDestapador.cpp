@@ -8,11 +8,12 @@
 
 #include "antiDestapador.h"
 
-AntiDestapador::AntiDestapador(Mapa* mapaActual){
+AntiDestapador::AntiDestapador(Mapa* mapaActual, char jugador,Jugador* jugador){
   this->fila = 0;
   this->columna = 0;
   this->puntaje = 0;
   this->mapa = mapaActual;
+this->jugador = jugador;
 
 }
 
@@ -36,8 +37,9 @@ int AntiDestapador::puntajeAltapar()
 		{
 			taparPandemia();
 		}
-		else
+		else if(valorCasilla==MINA)
 		{
+			this->jugador->asignarEstado(SIGUE_JUGANDO);
 			this->mapa->eliminarCasillaDestapada(this->fila, this->columna);
 			puntaje = taparCasillaNoVacia(valorCasilla);
 		}
