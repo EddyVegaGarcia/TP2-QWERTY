@@ -277,13 +277,14 @@ void Juez::deshacerJugada(){
 
 	JugadaLight* jugadaADeshacer = this->jugadas->obtenerDatoActual();
 	char opcion = jugadaADeshacer->obtenerOpcion();
+	char jugador = jugadaADeshacer->obtenerJugador();
 
 	if (opcion == 'm' || opcion == 'M'){
 		Marcador inverso(tableroDeJuego);
 		inverso.marcar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
 
 	}else if (opcion == 'd' || opcion == 'D'){
-		AntiDestapador inverso(tableroDeJuego);
+		AntiDestapador inverso(tableroDeJuego, jugador);
 		inverso.tapar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
 	}
 
