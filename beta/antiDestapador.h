@@ -9,6 +9,8 @@
 #define ANTIDESTAPADOR_H_
 
 # include "mapa.h"
+# include "jugador.h"
+# include "constantes.h"
 
 
 class AntiDestapador{
