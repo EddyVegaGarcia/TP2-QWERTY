@@ -8,6 +8,7 @@ template<class T> class ListaCircularCursor{
 
 	private:
 		Nodo<T>* cursor;
+		Nodo<T>* cursor2;
 		Nodo<T>* primero;
 		unsigned int tamanio;
 
@@ -39,6 +40,15 @@ template<class T> class ListaCircularCursor{
 		bool avanzarCursor();
 
 		T obtenerCursor();
+		//pre: debe haber al menos un elemento en la lista
+		//post: deja el cursor apuntando al primer elemento
+		void inicializarCursor2();
+
+		//post: apunta el cursor al siguiente elemento
+		//		en caso de no estar inicializado, lo inicializa.
+		bool avanzarCursor2();
+
+		T obtenerCursor2();
 	
 		bool estaVacia();
 
@@ -158,7 +168,35 @@ template<class T> T ListaCircularCursor<T>::obtenerCursor(){
 
 return elemento;
 }
+template<class T> void ListaCircularCursor<T>::inicializarCursor2(){
 
+	this->cursor2 = NULL;
+}
+
+template<class T> bool ListaCircularCursor<T>::avanzarCursor2(){
+
+	if(this->cursor2==NULL)
+	{
+		this->cursor2=this->primero;
+	}
+	else
+	{
+		this->cursor2=this->cursor->obtenerSiguiente();
+	}
+	return (this->cursor2 != NULL);
+}
+
+template<class T> T ListaCircularCursor<T>::obtenerCursor2(){
+
+	   T elemento;
+
+	    if (this->cursor2 != NULL) {
+
+	        elemento = this->cursor2->obtenerDato();
+	    }
+
+return elemento;
+}
 template<class T> bool ListaCircularCursor<T>::estaVacia(){
 
 	return (this->tamanio == 0);
