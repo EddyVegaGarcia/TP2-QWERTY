@@ -279,7 +279,7 @@ void Juez::deshacerJugada(){
 	char opcion = jugadaADeshacer->obtenerOpcion();
 	char alias = jugadaADeshacer->obtenerJugador();
 	Jugador* jugadorActual;
-	this->iniciarCursor2;
+	this->inicializarCursor2;
 	int puntaje;
 
 	do{
