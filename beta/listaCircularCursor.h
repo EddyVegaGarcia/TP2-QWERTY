@@ -67,6 +67,7 @@ template<class T> class ListaCircularCursor{
 template<class T> ListaCircularCursor<T>::ListaCircularCursor(){
 
 	this->cursor = NULL;
+	this->cursor2 = NULL;
 	this->primero = NULL;
 	this->tamanio = 0;
 }
