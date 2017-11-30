@@ -175,6 +175,11 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 	jugadorActual->iniciarJugada();
 	jugadaActual = jugadorActual->obtenerPJugada();
 
+	if(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
+
+		jugadorActual->modificarPuntaje(COSTO_MODIFCICAR);
+	}
+	
 	while(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
 
 		realizarCambios();
