@@ -1,9 +1,6 @@
 #include "destapador.h"
 
-
-//constructor
-Destapador::Destapador(Mapa* mapaActual)
-{
+Destapador::Destapador(Mapa* mapaActual){
   this->fila = 0;
   this->columna = 0;
   this->mapa = mapaActual;
@@ -12,28 +9,23 @@ Destapador::Destapador(Mapa* mapaActual)
 }
 
 //metodos publicos
-uint Destapador::destapar(uint filaJugada,uint columnaJugada)
-{
+uint Destapador::destapar(uint filaJugada,uint columnaJugada){
 	uint puntaje = 0;
 	this->fila = filaJugada;
  	this->columna = columnaJugada;
-	puntaje = this->puntajeAlDestapar(); //decía puntajeAlDestapar(*puntaje);
+	puntaje = this->puntajeAlDestapar();
 	return puntaje;
 }
 
-int Destapador::puntajeAlDestapar()
-{
+int Destapador::puntajeAlDestapar(){
 	int puntaje=0;
-	if( !this->mapa->estaDestapadaLaCasilla(this->fila, this->columna))
-	{
+	if( !this->mapa->estaDestapadaLaCasilla(this->fila, this->columna)){
 		char valorCasilla = mapa->obtenerValorCasilla(this->fila, this->columna);
 
-		if(valorCasilla == VACIO)
-		{
+		if(valorCasilla == VACIO){
 			destaparPandemia();
 		}
-		else
-		{
+		else{
 			this->mapa->agregarCasillaDestapada(this->fila, this->columna, valorCasilla);
 			puntaje = destaparCasillaNoVacia(valorCasilla);
 		}
@@ -41,10 +33,7 @@ int Destapador::puntajeAlDestapar()
 	return puntaje;
 }
 
-void Destapador::crearListaCasillasYAsignarPuntero()
-{
-	//Lista<Casilla> vacios;
-	//this->pVacios = &vacios;
+void Destapador::crearListaCasillasYAsignarPuntero(){
 	this->pVacios=new Lista<Casilla>;
 }
 
@@ -59,9 +48,6 @@ bool Destapador::validarUbicacion(uint fila, uint columna){
 	return ubicacionValida;
 }
 void Destapador::destaparPandemia(){
-
-	//this-> pVacios = new Lista<Casilla>;
-
 	pandemia(this->fila,this->columna);
 
 }
@@ -102,8 +88,7 @@ void Destapador::pandemia(uint fila, uint columna){
 	}
 }
 
-void Destapador::agregarVacio(uint filaPasada, uint columnaPasada)
-{
+void Destapador::agregarVacio(uint filaPasada, uint columnaPasada){
 	if(validarUbicacion(filaPasada, columnaPasada)){
 		Casilla vacia_n( filaPasada, columnaPasada, VACIO);
 		this->pVacios->agregar(vacia_n);
@@ -146,16 +131,14 @@ bool Destapador::pasoPorAqui(uint filaPasada, uint columnaPasada){
 				paso = true;
 		}
 	}
-return paso;
+	return paso;
 }
 
-uint Destapador::destaparCasillaNoVacia(char valorCasilla)
-{
+uint Destapador::destaparCasillaNoVacia(char valorCasilla){
 	
 	uint puntaje = 0;
   	
-	if(valorCasilla == MINA)
-	{
+	if(valorCasilla == MINA){
 		puntaje = PERDIO_PARTIDA;	
 	}
 	
@@ -164,8 +147,7 @@ uint Destapador::destaparCasillaNoVacia(char valorCasilla)
 	
 }
 
-Destapador::~Destapador()
-{
+Destapador::~Destapador(){
 	for(uint i = 1; i < this->pVacios->contarElementos()+1; i++){
 		this->pVacios->remover(i);
 	}
