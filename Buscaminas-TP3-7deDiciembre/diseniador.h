@@ -13,20 +13,32 @@ class Diseniador{
 private:
 
 	BMP disenio;
+	unsigned int numeroDeImpresion;
 	unsigned int cantidadFilas;
 	unsigned int cantidadColumnas;
 
 
 public:
 
+	Diseniador();
 	//post: crea un objeto Diseniador que contiene el disenio basico del mapa
-	Diseniador(unsigned int filas,unsigned int columnas);
+
+	void crearDisenioBase();
+
+	void modificarCantidadDeFilas(uint filas);
+
+	void modificarCantidadDeColumnas(uint columnas);
 
 	//post devuelve el disenio basandose en los tamanios de fila y columna recibidos
 	BMP obtenerDisenio();
 
+	void cambiarEnBMP(char valor, uint fila, uint columna);
+
+	void escribirDisenio();
 
 private:
+
+
 	void llenarMapaBloqueado();
 	void llenarEsquinas();
 	void llenarBordes();
