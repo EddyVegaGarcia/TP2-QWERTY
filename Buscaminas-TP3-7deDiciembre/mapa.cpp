@@ -1,7 +1,5 @@
 # include "mapa.h"
 
-
-
 Mapa::Mapa(int filaRecibida, int columnaRecibida, char dificultadRecibida){
 
 	this-> dimFila = filaRecibida;
@@ -172,7 +170,7 @@ void Mapa::llenarMapaCasillasDestapadas(Lista<Casilla>* casillas){
 				char valor;
 				valor = casillaActual.obtenerValor();
 				cambiarEnBMP(valor, casillaActual.obtenerFila(),
-											  casillaActual.obtenerColumna());
+				casillaActual.obtenerColumna());
 			}
 	   }
 }
@@ -201,7 +199,7 @@ char Mapa::calcularValorDeCasilla(uint filaCasilla, uint columnaCasilla){
 	return valor;
 }
 
-void Mapa::agregarCasillaDestapada(int filaRecibida,int columnaRecibida,char valorRecibido){ // modificando
+void Mapa::agregarCasillaDestapada(int filaRecibida,int columnaRecibida,char valorRecibido){
 	Casilla casillaPorAgregar(filaRecibida, columnaRecibida, valorRecibido);
 	this -> pCasillasDestapadas -> agregar(casillaPorAgregar);
 }
@@ -216,7 +214,7 @@ void Mapa::colocarMarca(int filaRecibida,int columnaRecibida){
 	this -> pBanderas -> agregar(banderaAColocar);
 }
 
-bool Mapa::removerYDevolverSiHabiaMarca(unsigned int fila, unsigned int columna){ // validarYRemoverMarcaSiHay(this->fila , this->columna)
+bool Mapa::removerYDevolverSiHabiaMarca(unsigned int fila, unsigned int columna){
 	uint posicion=0;
 
 	Buscador<Bandera> buscador(this->pBanderas);
