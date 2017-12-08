@@ -161,12 +161,15 @@ void Menu::comprobarDatos(){
 		dificultadPalabra = "FACIL";
 		dificultadNumerica = FACIL;
 	}
-
+	int numeroDeMinas = (this->dimFila*this->dimColumna*dificultadNumerica)/100;
+	if (numeroDeMinas==0)
+		numeroDeMinas = 1;
 	std::cout<<".:COMPROBANDO COMANDOS:."<<std::endl;
 	std::cout<<std::endl;
 	std::cout<<"Tamanio de la tabla de BUSCAMINAS: \t\t"<<this->dimFila<<" X "<<this->dimColumna<<std::endl;
 
 	std::cout<<"Dificultad pedida: \t\t\t\t.:"<<dificultadPalabra<<":."<<std::endl;
+	std::cout<<"Cantidad de MINAS en el BUSCAMINAS: \t\t"<<numeroDeMinas<<std::endl;
 	std::cout<<"Cantidad de JUGADORES: \t\t\t\t"<<cantJugadores<<std::endl;
 	std::cout<<std::endl;
 
