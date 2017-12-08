@@ -1,6 +1,3 @@
-
-
-
 #ifndef PSEUDOGRAFO_H_
 #define PSEUDOGRAFO_H_
 
@@ -15,12 +12,7 @@ private:
 
 public:
 	PseudoGrafo();
-	/*
-	 * ingresa un dato como siguiente al actual, si el siguiente tiene paralelos, lo ingresa como
-	 * el ultimo de los paralelos, luego mueve el cursor actual a la nueva posicion.
-	 */
 	void insertar(T dato);
-	//void insertarComoParalelo(T dato);
 	NodoGrafo<T>* obtenerActual();
 	bool estaVacia();
 	void retrocederCursor();
@@ -43,6 +35,11 @@ PseudoGrafo<T>::PseudoGrafo(){
 
 template <class T>
 void PseudoGrafo<T>::insertar(T dato){
+	/*
+	 * ingresa un dato como siguiente al actual, si el siguiente tiene paralelos, lo ingresa como
+	 * el ultimo de los paralelos, luego mueve el cursor actual a la nueva posicion.
+	 */
+
 
 	NodoGrafo<T>* nuevo = new NodoGrafo<T>(dato);
 
