@@ -35,10 +35,8 @@ char Casilla::obtenerValor(){
   return this->valor;
 }
 bool Casilla::seDestapoEnTablero(){
- 
-return this->seDestapo;
+  return this->seDestapo;
 }
 void Casilla::destaparEnTablero(){
-
-this->seDestapo = true;
+  this->seDestapo = true;
 }
