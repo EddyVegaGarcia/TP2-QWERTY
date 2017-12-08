@@ -17,14 +17,15 @@
 class Mapa{
 	
 	private:
-		unsigned int dimFila;
-		unsigned int dimColumna;
+		uint dimFila;
+		uint dimColumna;
 		char dificultad;
 		Lista<Mina>* pMinas;
 		Lista<Casilla>* pCasillasDestapadas;
 		Lista<Bandera>* pBanderas;
-		unsigned int numeroDeMapa;
-	
+		uint numeroDeMapa;
+		Diseniador diseniador;
+
 	public:
 		/*constructor
 		 *pre: recibe como parametro la dim de las filas, 
@@ -36,7 +37,7 @@ class Mapa{
 		//dificultad elegida
 		//post:crea un mapa con la cantidad de filas y columnas correspondientes y con tres listas
 		// una de minas, otra de casillas destapadas y otra de marcas.
-		Mapa(int filaRecibida, int columnaRecibida, char dificultadRecibida);
+		Mapa(uint filaRecibida, uint columnaRecibida, char dificultadRecibida);
 	
 		//destructor
 		~Mapa();
@@ -129,7 +130,6 @@ class Mapa{
 		void llenarVectorDeBanderas(unsigned int fila,char* vector[]);
 		void mostrarVector(char* vector[]);
 
-		void cambiarEnBMP(char valor, uint fila, uint columna);
 		
 		/* Pre: Recibe fila y columna de una casilla.
 		* Post: devuelve el valor de esa casilla.*/
