@@ -27,10 +27,8 @@ uint Bandera::obtenerColumna(){
   return columna;
 }
 bool Bandera::seDestapoEnTablero(){
- 
-return this->seDestapo;
+  return this->seDestapo;
 }
 void Bandera::destaparEnTablero(){
-
-this->seDestapo = true;
+  this->seDestapo = true;
 }
