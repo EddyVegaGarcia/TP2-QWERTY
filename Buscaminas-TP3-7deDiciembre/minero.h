@@ -14,14 +14,9 @@ class Minero{
 		int dimFila;
 		int dimColumna;
 		char dificultad;
-		//Mina* punteroAMinas;
 		Lista<Mina>* pMinas;
 
-
-
 	public:
-
-
 
 		//pre: recibe una cantidad de filas, columnas, la dificultad para crear el minero, y un
 		// puntero a una lista de minas onde estas se crearan.
