@@ -1,10 +1,3 @@
-/*
- * jugadaLight.h
- *
- *  Created on: Nov 28, 2017
- *      Author: ghost
- */
-
 #ifndef JUGADALIGHT_H_
 #define JUGADALIGHT_H_
 
@@ -32,12 +25,12 @@ class JugadaLight{
 
 		//pre:
 		//post: devuelve la columna actual
-	    int obtenerColumna();
+		int obtenerColumna();
 		//pre:
 		//post: devuelve la opcion actual
-	    char obtenerOpcion();
-
-	    char obtenerJugador();
+		char obtenerOpcion();
+	
+		char obtenerJugador();
 
 		//pre: se pasa como parámetro la opción que el usuario ingresó, es decir una D si
 		//quiere destapar una casilla, M si la quiere marcar o R si quiere retirarse.
