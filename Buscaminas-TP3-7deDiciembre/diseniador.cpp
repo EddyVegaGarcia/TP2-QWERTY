@@ -1,31 +1,112 @@
-
-
-
 #include "diseniador.h"
 #include "constantes.h"
 
-Diseniador::Diseniador(unsigned int filas, unsigned int columnas){
-	
-	this-> cantidadFilas = filas;
-	this-> cantidadColumnas = columnas;
-	
+Diseniador::Diseniador(){
+	this-> cantidadFilas = 0;
+	this-> cantidadColumnas = 0;
+	this-> numeroDeImpresion = 0;
+}
+
+void Diseniador::crearDisenioBase(){
+
 	unsigned int alto = calcularAlto(this->cantidadFilas);
 	unsigned int ancho = calcularAncho(this->cantidadColumnas);
 
 	this-> disenio.SetSize(ancho,alto);
 
-	disenio.WriteToFile(archivoDeJuego);
-
 	this->llenarMapaBloqueado();
 	this->llenarEsquinas();
 	this->llenarBordes();
 
-	disenio.WriteToFile(archivoDeJuego);
+	this->escribirDisenio();
+}
+
+void Diseniador::modificarCantidadDeFilas(uint filas){
+
+	this->cantidadFilas = filas;
+
+}
+
+void Diseniador::modificarCantidadDeColumnas(uint columnas){
+
+	this->cantidadColumnas= columnas;
 
 }
 
 BMP Diseniador::obtenerDisenio(){
 	return this->disenio;
+}
+
+void Diseniador::escribirDisenio(){
+
+	unsigned int digito = 0;
+	this->numeroDeImpresion++;
+
+	char nombreDeImpresion[] = "mapa_000";
+/*
+
+	if (numeroDeImpresion < 10){
+		nombreDeImpresion[7] = (char)numeroDeImpresion;
+	}else if(numeroDeImpresion > 100){
+		digito = numeroDeImpresion/100;
+		nombreDeImpresion[5] = (char)digito;
+		digito = (numeroDeImpresion-(digito*100))/10;
+		nombreDeImpresion[6] = (char)digito;
+		digito = numeroDeImpresion % 10;
+		nombreDeImpresion[7] = (char)digito;
+	}else{
+		digito = numeroDeImpresion / 10;
+		nombreDeImpresion[6] = (char)digito;
+		digito = numeroDeImpresion % 10;
+		nombreDeImpresion[7] = (char)digito;
+	}
+*/
+	disenio.WriteToFile(nombreDeImpresion);
+}
+
+void Diseniador::cambiarEnBMP(char valor, uint fila, uint columna){
+
+	BMP tipoDeCasilla;
+
+	if(valor == BANDERA){
+		tipoDeCasilla.ReadFromFile(archivoBandera);
+	}
+	else if (valor == MINA){
+		tipoDeCasilla.ReadFromFile(archivoMina);
+	}
+	else if (valor == '0'){
+		tipoDeCasilla.ReadFromFile(archivoVacio);
+	}
+	else if (valor == '1'){
+		tipoDeCasilla.ReadFromFile(archivo1);
+	}
+	else if (valor == '2'){
+		tipoDeCasilla.ReadFromFile(archivo2);
+	}
+	else if (valor == '3'){
+		tipoDeCasilla.ReadFromFile(archivo3);
+	}
+	else if (valor == '4'){
+		tipoDeCasilla.ReadFromFile(archivo4);
+	}
+	else if (valor == '5'){
+		tipoDeCasilla.ReadFromFile(archivo5);
+	}
+	else if (valor == '6'){
+		tipoDeCasilla.ReadFromFile(archivo6);
+	}
+	else if (valor == '7'){
+		tipoDeCasilla.ReadFromFile(archivo7);
+	}
+	else if (valor == '8'){
+		tipoDeCasilla.ReadFromFile(archivo8);
+	}
+	else if (valor == DESMARCAR){
+		tipoDeCasilla.ReadFromFile(archivoBloqueado);
+	}
+
+	RangedPixelToPixelCopy(tipoDeCasilla,0,15,15,0,disenio,
+			BORDES+((columna-1)*CELDAS),BORDES+((fila-1)*CELDAS));
 }
 
 unsigned int Diseniador::calcularAncho(unsigned int dimColumnas){
