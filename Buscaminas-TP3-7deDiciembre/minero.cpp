@@ -59,8 +59,9 @@ void Minero::asignarMinasAleatorias(int celdas,int minas){
 
 		asignarBomba(aux);
 
-		vectorEnteros[posVector] = vectorEnteros[tope];
-		vectorEnteros[tope] = aux;
+		
+		vectorEnteros[posVector] = vectorEnteros[tope-1];
+		vectorEnteros[tope-1] = aux;
 		tope--;
 	}
 	delete []vectorEnteros;
