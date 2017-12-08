@@ -17,7 +17,7 @@ const int HA_GANADO = 1;
 const int NO_ESTA_JUGANDO = 5;
 const int PUNTAJE_MINIMO=-123456;
 const int REALIZANDO_CAMBIOS = -1;
-const int COSTO_MODIFCICAR = -4;	// fue copipasteado, dejarlo escrito asi
+const int COSTO_MODIFICAR = -4;
 
 const uint FACIL=10;
 const uint MEDIO=20;
@@ -51,7 +51,5 @@ const char archivo8[] = "eightblue" ;
 const char archivoDeJuego[] = "currentGame";
 
 const char archivoDePuntajes[] = "puntajes.txt";
-
-//andy el mejor
 
 #endif /*CONSTANTES_H_*/
