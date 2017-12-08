@@ -1,13 +1,19 @@
-
-
 # include "jugador.h"
 # include <iostream>
 
 
+Jugador::Jugador(char letra, Mapa* punteroAMapa){
+	asignarAlias(letra);
+	asignarPuntaje(0);
+	asignarEstado(SIGUE_JUGANDO);
+	inicializarPunteroAJugada(punteroAMapa);
+	this->mapa = punteroAMapa;
+}
+
 
 // métodos púbicos
 void Jugador::modificarPuntaje(int puntos){
-	this->puntaje=puntos;
+	this->puntaje+=puntos;
 }
 char Jugador::obtenerAlias(){
 	return alias;
@@ -17,16 +23,6 @@ int Jugador::obtenerPuntaje(){
 }
 int Jugador::obtenerEstado(){
 	return this-> estado;
-}
-
-
-// constructor, inicializar
-Jugador::Jugador(char letra, Mapa* punteroAMapa){
-	asignarAlias(letra);
-	asignarPuntaje(0);
-	asignarEstado(SIGUE_JUGANDO);
-	inicializarPunteroAJugada(punteroAMapa);
-	this->mapa = punteroAMapa;
 }
 
 // métodos privados
@@ -68,17 +64,12 @@ void Jugador::iniciarJugada(){
 
 	std::cout<<std::endl;
 	std::cout << "TURNO JUGADOR: \t"<< this->alias << std::endl;
-
-
-
 	std::cout<<std::endl;
 
 
-	if(this->puntaje>=4)
+	if(this->puntaje>=PUNTAJE_NECESARIO_PARA_JUGADAS_ESPECIALES)
 		quiereModificarJugadas = PreguntarSiQuiereModificarJugadas();
 	else std::cout<<"Puntaje insuficiente para realizar JUGADAS ESPECIALES"<<std::endl;
-
-
 
 
 	if (quiereModificarJugadas){
@@ -102,13 +93,9 @@ void Jugador::iniciarJugada(){
 		}while(this->validarOpcionUser(opcionUser));
 
 
-
 		this->pJugada->asignarOpcion(opcionUser);
-
 		this->pJugada->asignarFila(filaUser);
-
 		this->pJugada->asignarColumna(colUser);
-
 		puntos = this->pJugada->realizarJugada();
 
 		if (puntos == PERDIO_PARTIDA)
@@ -116,11 +103,10 @@ void Jugador::iniciarJugada(){
 		else if (puntos == SE_RETIRO)
 			this->asignarEstado(SE_RETIRO);
 		else{
-			puntos += obtenerPuntaje();
+			//puntos += obtenerPuntaje();
 			this->modificarPuntaje(puntos);
 			this->asignarEstado(SIGUE_JUGANDO);
 		}
-
 
 	}
 }
@@ -146,4 +132,3 @@ Jugada* Jugador::obtenerPJugada(){
 Jugador::~Jugador(){
         delete pJugada;
 }
-
