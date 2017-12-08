@@ -18,6 +18,7 @@ const int NO_ESTA_JUGANDO = 5;
 const int PUNTAJE_MINIMO=-123456;
 const int REALIZANDO_CAMBIOS = -1;
 const int COSTO_MODIFICAR = -4;
+const int PUNTAJE_NECESARIO_PARA_JUGADAS_ESPECIALES = 4;
 
 const uint FACIL=10;
 const uint MEDIO=20;
@@ -25,8 +26,8 @@ const uint DIFICIL=40;
 
 const uint CELDAS=16;
 const uint BORDES=8;
-										//iniciales=
-const char archivoN[] = "topblue"; 		//norte
+						//iniciales=
+const char archivoN[] = "topblue"; 	//norte
 const char archivoS[] = "bottomblue"; 	//sur
 const char archivoE[] = "rightblue"; 	//este
 const char archivoO[] = "leftblue"; 	//oeste
