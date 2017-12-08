@@ -24,7 +24,6 @@ class Mapa{
 		Lista<Casilla>* pCasillasDestapadas;
 		Lista<Bandera>* pBanderas;
 		unsigned int numeroDeMapa;
-		BMP baseMapa;
 	
 	public:
 		/*constructor
