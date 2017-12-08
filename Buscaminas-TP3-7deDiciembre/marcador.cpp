@@ -1,6 +1,5 @@
 #include "marcador.h"
 
-
 Marcador::Marcador(Mapa* mapaActual){
 
   this->fila = 0;
