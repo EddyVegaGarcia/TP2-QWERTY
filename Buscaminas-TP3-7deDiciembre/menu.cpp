@@ -167,7 +167,6 @@ void Menu::comprobarDatos(){
 	std::cout<<"Tamanio de la tabla de BUSCAMINAS: \t\t"<<this->dimFila<<" X "<<this->dimColumna<<std::endl;
 
 	std::cout<<"Dificultad pedida: \t\t\t\t.:"<<dificultadPalabra<<":."<<std::endl;
-	std::cout<<"Cantidad de MINAS en el BUSCAMINAS: \t\t"<<(this->dimFila*this->dimColumna*dificultadNumerica)/100<<std::endl;
 	std::cout<<"Cantidad de JUGADORES: \t\t\t\t"<<cantJugadores<<std::endl;
 	std::cout<<std::endl;
 
