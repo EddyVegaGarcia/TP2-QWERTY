@@ -23,6 +23,12 @@ private:
 	uint minasPorDescubrir;
 	
 public:
+	
+	/*pre:
+	 * post: devuelve la cantidad de minas que se han descubierto.
+	 * */
+
+	int cuantasMinasDescubiertasHay();
 	/* Pre: Recibe una "cantidadDeJugadores" de tipo int, y un puntero a Mapa o "tableroDeJuego".
 	* Post: Se crea un Juez con la cantidadDeJugadores y tableroDeJuego pasados por parámetros,
 	* 	deja creada una lista con cantidadDeJugadores punteros a Jugador.*/
