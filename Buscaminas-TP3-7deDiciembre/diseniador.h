@@ -19,11 +19,11 @@ private:
 
 public:
 
-//post: crea un objeto Diseniador que contiene el disenio basico del mapa
-Diseniador(unsigned int filas,unsigned int columnas);
+	//post: crea un objeto Diseniador que contiene el disenio basico del mapa
+	Diseniador(unsigned int filas,unsigned int columnas);
 
-//post devuelve el disenio basandose en los tamanios de fila y columna recibidos
-BMP obtenerDisenio();
+	//post devuelve el disenio basandose en los tamanios de fila y columna recibidos
+	BMP obtenerDisenio();
 
 
 private:
