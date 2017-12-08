@@ -1,6 +1,7 @@
 # include "mapa.h"
 
-Mapa::Mapa(int filaRecibida, int columnaRecibida, char dificultadRecibida){
+
+Mapa::Mapa(uint filaRecibida, uint columnaRecibida, char dificultadRecibida){
 
 	this-> dimFila = filaRecibida;
 	this-> dimColumna = columnaRecibida;
@@ -13,8 +14,9 @@ Mapa::Mapa(int filaRecibida, int columnaRecibida, char dificultadRecibida){
 	Minero minero(dimFila,dimColumna,dificultad,pMinas);
 	minero.sembrarMinas();
 
-	Diseniador diseniador(dimFila,dimColumna);
-
+	diseniador.modificarCantidadDeFilas(filaRecibida);
+	diseniador.modificarCantidadDeColumnas(columnaRecibida);
+	diseniador.crearDisenioBase();
 }
 
 Mapa::~Mapa(){
@@ -92,57 +94,6 @@ Lista<Bandera>* Mapa::obtenerPunteroBanderas(){
 
 }
 
-void Mapa::cambiarEnBMP(char valor, uint fila, uint columna){
-
-	BMP tipoDeCasilla;
-	BMP full;
-
-	full.ReadFromFile("currentGame");
-
-	if(valor == BANDERA){
-		tipoDeCasilla.ReadFromFile(archivoBandera);
-	}
-	else if (valor == MINA){
-		tipoDeCasilla.ReadFromFile(archivoMina);
-	}
-	else if (valor == '0'){
-		tipoDeCasilla.ReadFromFile(archivoVacio);
-	}
-	else if (valor == '1'){
-		tipoDeCasilla.ReadFromFile(archivo1);
-	}
-	else if (valor == '2'){
-		tipoDeCasilla.ReadFromFile(archivo2);
-	}
-	else if (valor == '3'){
-		tipoDeCasilla.ReadFromFile(archivo3);
-	}
-	else if (valor == '4'){
-		tipoDeCasilla.ReadFromFile(archivo4);
-	}
-	else if (valor == '5'){
-		tipoDeCasilla.ReadFromFile(archivo5);
-	}
-	else if (valor == '6'){
-		tipoDeCasilla.ReadFromFile(archivo6);
-	}
-	else if (valor == '7'){
-		tipoDeCasilla.ReadFromFile(archivo7);
-	}
-	else if (valor == '8'){
-		tipoDeCasilla.ReadFromFile(archivo8);
-	}
-	else if (valor == DESMARCAR){
-		tipoDeCasilla.ReadFromFile(archivoBloqueado);
-	}
-
-	RangedPixelToPixelCopy(tipoDeCasilla,0,15,15,0,full,
-			BORDES+((columna-1)*CELDAS),BORDES+((fila-1)*CELDAS));
-
-	full.WriteToFile("currentGame");
-
-}
-
 void Mapa::llenarMapaBanderas(Lista<Bandera>* banderas){
 
 	banderas->iniciarCursor();
@@ -152,7 +103,7 @@ void Mapa::llenarMapaBanderas(Lista<Bandera>* banderas){
 		banderaActual = banderas->obtenerCursor();
 
 		if(!banderaActual.seDestapoEnTablero()){
-			cambiarEnBMP(BANDERA, banderaActual.obtenerFila(),
+			this->diseniador.cambiarEnBMP(BANDERA, banderaActual.obtenerFila(),
 				                          banderaActual.obtenerColumna());
 
 		}
@@ -169,14 +120,17 @@ void Mapa::llenarMapaCasillasDestapadas(Lista<Casilla>* casillas){
 			if(!casillaActual.seDestapoEnTablero()){
 				char valor;
 				valor = casillaActual.obtenerValor();
-				cambiarEnBMP(valor, casillaActual.obtenerFila(),
-				casillaActual.obtenerColumna());
+				this->diseniador.cambiarEnBMP(valor, casillaActual.obtenerFila(),
+											  casillaActual.obtenerColumna());
 			}
 	   }
 }
 void Mapa::mostrarMapa(){
+
 	llenarMapaBanderas(this->pBanderas);
 	llenarMapaCasillasDestapadas(this->pCasillasDestapadas);
+
+	this->diseniador.escribirDisenio();
 }
 
 char Mapa::calcularValorDeCasilla(uint filaCasilla, uint columnaCasilla){
@@ -222,7 +176,7 @@ bool Mapa::removerYDevolverSiHabiaMarca(unsigned int fila, unsigned int columna)
 
 	if (seEncuentra){
 		pBanderas->remover(posicion);
-		cambiarEnBMP(DESMARCAR,fila,columna);
+		this->diseniador.cambiarEnBMP(DESMARCAR,fila,columna);
     }
 
 	return seEncuentra;
@@ -253,7 +207,7 @@ void Mapa::eliminarCasillaDestapada(unsigned int fila, unsigned int columna){
 
 	if (seEncuentra){
 		this->pCasillasDestapadas->remover(posicion);
-			cambiarEnBMP(DESMARCAR,fila,columna);
+		this->diseniador.cambiarEnBMP(DESMARCAR,fila,columna);
 	}
 }
 
@@ -273,7 +227,7 @@ void Mapa::eliminarCasillasDestapadasDesde(unsigned int fila, unsigned int colum
 
 			casillaABorrar = pCasillasDestapadas->obtener(posicion);
 			this->pCasillasDestapadas->remover(posicion);
-			cambiarEnBMP(DESMARCAR,casillaABorrar.obtenerFila(),casillaABorrar.obtenerColumna());
+			this->diseniador.cambiarEnBMP(DESMARCAR,casillaABorrar.obtenerFila(),casillaABorrar.obtenerColumna());
 		}
 
 	}
