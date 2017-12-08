@@ -1,10 +1,3 @@
-/*
- * antiDestapador.h
- *
- *  Created on: Nov 28, 2017
- *      Author: ghost
- */
-
 #ifndef ANTIDESTAPADOR_H_
 #define ANTIDESTAPADOR_H_
 
