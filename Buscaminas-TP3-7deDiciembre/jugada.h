@@ -26,7 +26,7 @@ class Jugada{
 	
 		//pre:
 		//post: devuelve la columna actual
-	    int obtenerColumna();
+	   	int obtenerColumna();
 		//pre:
 		//post: devuelve la opcion actual
 		char obtenerOpcion();
@@ -54,8 +54,6 @@ class Jugada{
 		//decir, se destapará la casilla, se marcará ésta, o se retirará el jugador, se 
 		//devolverá el puntaje ganado con la jugada hecha.
 		int realizarJugada();
-			
-		//bool operator = ();
 			
 };
 
