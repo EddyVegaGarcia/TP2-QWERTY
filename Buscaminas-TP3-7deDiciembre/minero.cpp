@@ -36,6 +36,9 @@ int Minero::asignarNumeroMaximoMinas(int totalCeldas){
 	else if (dificultad=='M'||dificultad=='m') maximoMinas = (totalCeldas*MEDIO)/100;
 
 	else  maximoMinas = (totalCeldas*FACIL)/100;
+	
+	if(maximoMinas==0)
+		maximoMinas = 1;
 
 	return maximoMinas;
 }
