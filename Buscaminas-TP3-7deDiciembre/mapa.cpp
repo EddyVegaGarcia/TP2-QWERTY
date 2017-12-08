@@ -16,7 +16,6 @@ Mapa::Mapa(int filaRecibida, int columnaRecibida, char dificultadRecibida){
 	minero.sembrarMinas();
 
 	Diseniador diseniador(dimFila,dimColumna);
-	this->baseMapa = diseniador.obtenerDisenio();
 
 }
 
