@@ -187,7 +187,8 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 	this->jugadas->insertar(jugadaLiviana);
 
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
-	tableroDeJuego->mostrarMapa();
+
+	this->tableroDeJuego->mostrarMapa();
 
 }
 
@@ -416,4 +417,3 @@ Juez::~Juez(){
 	
 	delete this->jugadores;
 }
-
