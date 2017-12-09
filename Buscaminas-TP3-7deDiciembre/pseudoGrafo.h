@@ -2,7 +2,6 @@
 #define PSEUDOGRAFO_H_
 
 #include "nodoGrafo.h"
-#include "jugada.h"
 
 template <class T> class PseudoGrafo{
 
@@ -13,16 +12,17 @@ private:
 public:
 	PseudoGrafo();
 	void insertar(T dato);
+
 	NodoGrafo<T>* obtenerActual();
 	bool estaVacia();
-	void retrocederCursor();
+	bool retrocederCursor();
 	T obtenerDatoActual();
 	NodoGrafo<T>* obtenerPrimero();
 	bool avanzarCursor();
 	bool avanzarCursorAParalela();
 
-	~PseudoGrafo();
 	void borrarNodo(NodoGrafo<T>* aBorrar);
+	~PseudoGrafo();
 
 };
 
@@ -56,9 +56,14 @@ void PseudoGrafo<T>::insertar(T dato){
 		  NodoGrafo<T>* paraleloSiguiente;
 
 		  if(siguiente->tieneParalelo()){
+
 			  paraleloSiguiente = siguiente->obtenerParalelo();
-			  while(paraleloSiguiente->tieneParalelo())
-				  paraleloSiguiente->cambiarSiguiente(paraleloSiguiente->obtenerParalelo());
+
+			  while(paraleloSiguiente->tieneParalelo()) //obtener el ultimo de los paralelos
+				  paraleloSiguiente=paraleloSiguiente->obtenerParalelo();
+
+			  paraleloSiguiente->cambiarParalelo(nuevo);
+			  nuevo->cambiarAnterior(actual);
 		  }
 		  else{
 			  siguiente->cambiarParalelo(nuevo);
@@ -90,13 +95,15 @@ bool PseudoGrafo<T>::estaVacia(){
 }
 
 template <class T>
-void PseudoGrafo<T>::retrocederCursor(){
+bool PseudoGrafo<T>::retrocederCursor(){
 
 	if (primero!=NULL){
 		if(actual!=primero)
 			this->actual = this->actual->obtenerAnterior();
 		else this->actual = NULL;
 	}
+
+	return (actual != NULL);
 }
 
 template <class T>
@@ -111,8 +118,8 @@ bool PseudoGrafo<T>::avanzarCursor(){
 	bool tieneSiguiente = false;
 
 	if(this->actual->tieneSiguiente()){
-	this->actual= this->actual->obtenerSiguiente();
-	tieneSiguiente = true;
+		this->actual= this->actual->obtenerSiguiente();
+		tieneSiguiente = true;
 	}
 return tieneSiguiente;
 }
@@ -147,7 +154,7 @@ PseudoGrafo<T>::~PseudoGrafo(){
 			borrarNodo(ultimo);
 			ultimo = anterior;
 		}
-		borrarNodo(ultimo);
+		delete ultimo;
 	}
 }
 
@@ -160,6 +167,10 @@ void PseudoGrafo<T>::borrarNodo(NodoGrafo<T>* aBorrar){
 	if(aBorrar->tieneParalelo()){
 		borrarNodo(aBorrar->obtenerParalelo());
 	}
+
+	NodoGrafo<T>* anterior = aBorrar->obtenerAnterior();
+	anterior->cambiarSiguiente(NULL);
+	anterior->cambiarParalelo(NULL);
 	delete aBorrar;
 
 }
