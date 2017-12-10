@@ -164,6 +164,8 @@ PseudoGrafo<T>::~PseudoGrafo(){
 			borrarNodo(ultimo);
 			ultimo = anterior;
 		}
+
+		delete ultimo->obtenerDato();
 		delete ultimo;
 	}
 }
@@ -181,6 +183,8 @@ void PseudoGrafo<T>::borrarNodo(NodoGrafo<T>* aBorrar){
 	NodoGrafo<T>* anterior = aBorrar->obtenerAnterior();
 	anterior->cambiarSiguiente(NULL);
 	anterior->cambiarParalelo(NULL);
+
+	delete aBorrar->obtenerDato();
 	delete aBorrar;
 
 }
