@@ -19,7 +19,7 @@ public:
 
 	AntiDestapador(Mapa* mapaActual, Jugador* jugador);
 
-	uint tapar(uint filaJugada,uint columnaJugada);
+	bool tapar(uint filaJugada,uint columnaJugada);
 
 	bool puntajeAltapar();
 
