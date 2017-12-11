@@ -6,7 +6,6 @@
 # include "constantes.h"
 # include "pseudoGrafo.h"
 # include "jugadaLight.h"
-# include "jugador.h"
 # include "listaCircularCursor.h"
 
 
@@ -27,9 +26,6 @@ class Pantalla{
 		void mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje);
 
 		void terminoLaPartida();
-
-		void mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
-				int puntajeMaximo,uint puntajesMaximosIguales);
 
 		void noHayJugadas();
 	
