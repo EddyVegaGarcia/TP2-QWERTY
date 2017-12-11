@@ -12,9 +12,7 @@
 class Pantalla{
 
 	public:
-	
-		// Llamados desde Juez:
-	
+
 		void playGame();
 
 		char pedirOpcionPasadoFuturo();
@@ -27,16 +25,17 @@ class Pantalla{
 
 		void terminoLaPartida();
 
+
 		void noHayJugadas();
-	
+
+
 		void imprimirEncabezadoUnicoGanador();
 
 		void imprimirEncabezadoGanadores();
 
 		void imprimirFelicitacionesHaGanado(char alias, int puntaje);
 
-		
-		// Llamados desde Menú:
+		// Llamados desde Menu
 
 		char imprimirOpcionesDeMenu();
 
@@ -53,10 +52,21 @@ class Pantalla{
 		char pedirDificultad();
 
 		uint pedirCantidadJugadores();
-	
-	
-		void imprimirJugadorRevive(char alias);
 
+		// Llamados desde Jugador:
+
+		void imprimirTurno(char alias);
+
+		char verSiQuiereModificarJugadas();
+
+		void puntajeInsuficiente();
+
+		void pedirUbicacionAUser(uint &fila, uint &columna);
+
+		char pedirOpcionAUser();
+
+
+		void imprimirJugadorRevive(char alias);
 	
 	private:
 	
