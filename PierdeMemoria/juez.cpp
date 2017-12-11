@@ -245,7 +245,7 @@ void Juez::realizarCambios(Jugador* jugadorActual){
 			}
 			else{
 				terminoDeHacerCambios = true;
-				pantalla.noHayJugadas();
+				pantalla.noHayJugadasParaDeshacer();
 			}
 		}
 		else if(opcionDeUsuario == 'f' || opcionDeUsuario == 'F'){
@@ -385,6 +385,8 @@ bool Juez::banderaEsCorrecta(Bandera actual,Lista<Mina>*minas){
 
 Juez::~Juez(){
 	
+	Pantalla pantalla;
+
 	this->jugadores->inicializarCursor();
 	Jugador* jugadorActual;
 
@@ -392,11 +394,9 @@ Juez::~Juez(){
 
 		jugadorActual = this->jugadores->obtenerCursor();
 		Jugador* jugadorABorrar;
-		char alias;
-		int puntaje;
-		alias = jugadorActual->obtenerAlias();
-		puntaje = jugadorActual->obtenerPuntaje();
-		std::cout<<"El jugador: " << alias << " tiene " << puntaje << " puntos." << std::endl;
+
+		pantalla.imprimirPuntajeDeJugador(jugadorActual->obtenerAlias(),jugadorActual->obtenerPuntaje());
+
 		jugadorABorrar = jugadorActual;
 		this->jugadores->avanzarCursor();
 		jugadorActual = this->jugadores->obtenerCursor();
