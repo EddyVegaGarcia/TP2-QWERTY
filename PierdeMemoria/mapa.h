@@ -26,6 +26,8 @@ class Mapa{
 		uint numeroDeMapa;
 		Diseniador diseniador;
 
+		uint minasPorDescubrir;
+
 	public:
 		/*constructor
 		 *pre: recibe como parametro la dim de las filas, 
@@ -42,7 +44,15 @@ class Mapa{
 		//destructor
 		~Mapa();
 
-	
+		/* Post: devuelve la cantidad de minas que quedan por descubrir en el mapa.*/
+		uint obtenerMinasPorDescubrir();
+
+		/* Post: incrementa en uno la cantidad de minas que quedan por descubrir en el mapa.*/
+		void incrementarMinasPorDescubrir();
+
+		/* Post: decrementa en uno la cantidad de minas que quedan por descubrir en el mapa.*/
+		void decrementarMinasPorDescubrir();
+
 	
 		/* Post: devuelve la cantidad de filas del tablero de juego.*/
 		uint obtenerFila();
@@ -110,6 +120,7 @@ class Mapa{
 		void eliminarCasillasDestapadasDesde(unsigned int fila, unsigned int columna);
 
 	private:
+
 		//pre: 
 		//post: se crea una lista de minas y se asigna al atributo
 		void crearListaMinasYAsignarPuntero();
