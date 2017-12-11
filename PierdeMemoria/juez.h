@@ -57,9 +57,6 @@ class Juez{
 		/* Post: avanza hasta el jugador más próximo que siga jugando.*/
 		void avanzarJugador();
 
-		//void mostrarJugador(); /* A esto si lo quieren usar para algo, hay que cambiarlo (es corito, pero no sé qué quieren mostrar)*/
-
-
 		/* Pre: Recibe un puntero al jugadorActual, una variable de tipo int que indica la cantidad de jugadores que perdieron,
 		* 	un puntero a Mapa, y una variable de tipo unsigned int que indica la cantidad de minas que quedan por descubrir
 		* 	en el tablero.
@@ -74,7 +71,7 @@ class Juez{
 
 		bool banderaEsCorrecta(Bandera actual,Lista<Mina>* minas);
 
-		void realizarCambios();
+		void realizarCambios(Jugador* jugadorActual)
 
 		bool deshacerJugada();
 
