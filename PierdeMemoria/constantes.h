@@ -21,6 +21,7 @@ const int PUNTAJE_MINIMO=-123456;
 const int REALIZANDO_CAMBIOS = -1;
 const int COSTO_MODIFICAR = 0;
 const int PUNTAJE_NECESARIO_PARA_JUGADAS_ESPECIALES = 0;
+const int REVIVE = 25;
 
 const uint FACIL=10;
 const uint MEDIO=20;
