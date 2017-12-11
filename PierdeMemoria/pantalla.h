@@ -1,87 +1,89 @@
-#ifndef JUEZ_H_
-#define JUEZ_H_
+#ifndef PANTALLA_H_
+#define PANTALLA_H_
 
-# include "mapa.h"
-# include "jugador.h"
-# include "constantes.h"
-# include "listaCircularCursor.h"
 # include <iostream>
-# include <fstream>
-# include "jugadaLight.h"
-# include "antiDestapador.h"
+# include <string>
+# include "constantes.h"
 # include "pseudoGrafo.h"
-# include "pantalla.h"
+# include "jugadaLight.h"
+# include "jugador.h"
+# include "listaCircularCursor.h"
 
-class Juez{
 
-	private:
-		int cantidadDeJugadores;
-		ListaCircularCursor<Jugador*>* jugadores;
-		PseudoGrafo<JugadaLight*>* jugadas;
-		Mapa* tableroDeJuego;
-		int jugadoresQuePerdieron;
-		uint casillasOcultas;
-		uint minasPorDescubrir;
+class Pantalla{
 
 	public:
-		/* Pre: Recibe una "cantidadDeJugadores" de tipo int, y un puntero a Mapa o "tableroDeJuego".
-		* Post: Se crea un Juez con la cantidadDeJugadores y tableroDeJuego pasados por parámetros,
-		* 	deja creada una lista con cantidadDeJugadores punteros a Jugador.*/
-		Juez(unsigned int cantidadJugadores,Mapa* mapaRecibido);
 
-		/* Post: inicia el juego. Esto es, pide jugadas a los jugadores por turnos, las jugadas se realizan,
-		* 	se modifican los puntajes, se muestra el tablero, verifica si cada jugador ganó o perdió y se
-		* 	muestran los mensajes correspondientes. */
-		void inicializarJuego();
+		// Llamados desde Juez:
+
+		void playGame();
+
+		char pedirOpcionPasadoFuturo();
+
+		int pedirOpcionRehacerJugada(PseudoGrafo<JugadaLight*>* jugadas);
+
+		void noSePuedeRetroceder();
+
+		void mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje);
+
+		void terminoLaPartida();
+
+		void noHayJugadasParaDeshacer();
+
+		void noHayJugadasParaRehacer();
+
+		void imprimirFelicitacionesGanador();
+
+		void imprimirFelicitacionesGanadores();
+
+		void imprimirFelicitacionesHaGanado(char alias, int puntaje);
+
+		void imprimirPuntajeDeJugador(char alias,int puntaje);
 
 
 
-		/* Post: Libera los recursos asociados a Juez.*/
-		~Juez();
+		// Llamados desde Menu:
 
+		char imprimirOpcionesDeMenu();
+
+		void imprimirReglasDeJuego();
+
+		void imprimirTitulo();
+
+		void imprimirPidiendoDatos();
+	
+		void comprobarDatos(char dificultad, uint dimFila, uint dimColumna, uint cantJugadores);
+
+		void pedirDimensiones(uint &filaUser, uint &colUser);
+
+		char pedirDificultad();
+
+		uint pedirCantidadJugadores();
+
+
+		// Llamados desde Jugador:
+
+		void imprimirTurno(char alias);
+
+		char verSiQuiereModificarJugadas();
+
+		void puntajeInsuficiente();
+
+		void pedirUbicacionAUser(uint &fila, uint &columna);
+
+		char pedirOpcionAUser();
+
+
+		void imprimirJugadorRevive(char alias);
+
+	
 	private:
-		/* Pre: Se ha llamado a crearYAsignarListaDeJugadores()
-		* Post: Crea a los jugadores y los agrega a la lista.*/
-		void crearJugadores();
+	
+		void imprimirLinea();
+	
+		void imprimirDatosIngresados(uint dimFila, uint dimColumna, std::string dificultadPalabra,
+				int numeroDeMinas, uint cantJugadores);
 
-		/* Post: Crea una lista de jugadores.*/
-		void crearYAsignarListaDeJugadores();
-
-		/* Pre: Se ha llamado a crearYAsignarListaDeJugadores(). Recibe un puntero a un Jugador.
-		* Post: Inserta "nuevo" a la lista de jugadores creada por crearYAsignarListaDeJugadores().*/
-
-		void crearYAsignarGrafoDeJugadas();
-
-		void insertarJugador(Jugador* nuevo);
-
-		/* Post: avanza hasta el jugador más próximo que siga jugando.*/
-		void avanzarJugador();
-
-		/* Pre: Recibe un puntero al jugadorActual, una variable de tipo int que indica la cantidad de jugadores que perdieron,
-		* 	un puntero a Mapa, y una variable de tipo unsigned int que indica la cantidad de minas que quedan por descubrir
-		* 	en el tablero.
-		* Post: da su turno al jugadorActual y muestra el tablero de juego.*/
-		void sigueJugando(Jugador* jugadorActual,Mapa* tableroDeJuego);
-
-		void crearArchivoConPuntajes();
-
-		void encontrarJugadorQueGanoPorPuntaje();
-
-		uint buscarBanderasCorrectas();
-
-		bool banderaEsCorrecta(Bandera actual,Lista<Mina>* minas);
-
-		void realizarCambios(Jugador* jugadorActual);
-
-		bool deshacerJugada();
-
-		bool rehacerJugada();
-
-		void rehacerParalela(uint posicion);
-
-		void mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
-											int puntajeMaximo,int puntajesMaximosIguales);
 
 };
-
-#endif /* JUEZ_H_ */
+#endif
