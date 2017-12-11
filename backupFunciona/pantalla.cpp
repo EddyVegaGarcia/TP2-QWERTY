@@ -108,6 +108,19 @@ void Pantalla::noHayJugadas(){
 }
 
 
+void Pantalla::imprimirEncabezadoUnicoGanador(){
+	std::cout<<"FELICITACIONES!! El jugador ganador es:"<<std::endl;
+}
+
+void Pantalla::imprimirEncabezadoGanadores(){
+	std::cout<<"EMPATE! Los jugadores ganadores son:"<<std::endl;
+}
+
+void Pantalla::imprimirFelicitacionesHaGanado(char alias, int puntaje){
+	std::cout<<alias<<" puntaje: "<<puntaje<<std::endl;
+}
+
+
 ////////////////////////////////////
 /////// Llamados desde Menu ////////
 ////////////////////////////////////
