@@ -58,16 +58,10 @@ void Pantalla::noSePuedeRetroceder(){
 
 }
 
-void Pantalla::mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual){
-
-	int puntaje = 0;
-	char alias;
-	alias = jugadorActual->obtenerAlias();
-	puntaje = jugadorActual->obtenerPuntaje();
+void Pantalla::mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje){
 	std::cout<<std::endl;
 	std::cout<<".:EL JUGADOR " << alias << " OBTUVO SU GAME OVER:. "<<std::endl;
 	std::cout<< "PUNTAJE OBTENIDO: " << puntaje << std::endl;
-
 }
 
 void Pantalla::terminoLaPartida(){
