@@ -9,11 +9,10 @@ AntiDestapador::AntiDestapador(Mapa* mapaActual,Jugador* jugador){
 
 }
 
-uint AntiDestapador::tapar(uint filaJugada,uint columnaJugada){
-	uint puntaje = 0;
+bool AntiDestapador::tapar(uint filaJugada,uint columnaJugada){
 	this->fila = filaJugada;
  	this->columna = columnaJugada;
-	puntaje = this->puntajeAltapar();
+	bool puntaje = this->puntajeAltapar();
 	return puntaje;
 }
 
@@ -48,12 +47,15 @@ bool AntiDestapador::validarUbicacion(uint fila, uint columna){
 	}
 	return ubicacionValida;
 }
-
 void AntiDestapador::taparPandemia(){
+
   this->mapa->eliminarCasillasDestapadasDesde(this->fila,this->columna);
+
 }
 
 // devuelve true si se "antidestapa" una mina, es decir si un jugador revive
 bool AntiDestapador::taparCasillaNoVacia(char valorCasilla){
+
 	return (valorCasilla == MINA);
+
 }
