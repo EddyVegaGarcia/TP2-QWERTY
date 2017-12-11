@@ -17,6 +17,7 @@ bool AntiDestapador::tapar(uint filaJugada,uint columnaJugada){
 }
 
 bool AntiDestapador::puntajeAltapar(){
+	Pantalla pantalla;
 	bool revive=false;
 	if(this->mapa->estaDestapadaLaCasilla(this->fila, this->columna)){
 		char valorCasilla = mapa->obtenerValorCasilla(this->fila, this->columna);
@@ -28,6 +29,7 @@ bool AntiDestapador::puntajeAltapar(){
 
 			if(valorCasilla==MINA){
 				this->jugador->asignarEstado(SIGUE_JUGANDO);
+				mapa->incrementarMinasPorDescubrir();
 				pantalla.imprimirJugadorRevive(this->jugador->obtenerAlias());
 			}
 			this->mapa->eliminarCasillaDestapada(this->fila, this->columna);
