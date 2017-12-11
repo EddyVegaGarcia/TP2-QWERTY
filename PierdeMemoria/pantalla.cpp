@@ -251,3 +251,44 @@ uint Pantalla::pedirCantidadJugadores(){
 	std::cout<<std::endl;
 	return cantidadUser;
 }
+
+
+////////////////////////////////////
+///// Llamados desde Jugador ///////
+////////////////////////////////////
+
+void Pantalla::imprimirTurno(char alias){
+	std::cout<<std::endl;
+	std::cout << "TURNO JUGADOR: \t"<< alias << std::endl;
+	std::cout<<std::endl;
+}
+
+char Pantalla::verSiQuiereModificarJugadas(){
+
+	char opcionUser;
+	std::cout<<"\t.:JUGADA ESPECIAL:.\t.:DESHACER/REHACER"<<std::endl;
+	std::cout<<"Se le restarán "<< COSTO_MODIFICAR << " puntos - CONFIRMAR (S/N) : "<<std::endl;
+	std::cin>>opcionUser;
+
+	return opcionUser;
+
+}
+
+void Pantalla::puntajeInsuficiente(){
+	std::cout<<"Puntaje insuficiente para realizar JUGADAS ESPECIALES"<<std::endl;
+}
+
+void Pantalla::pedirUbicacionAUser(uint &fila, uint &columna){
+	std::cout<<"Ingrese fila y columna a jugar: "<<std::endl;
+	std::cin>>fila>>columna;
+	std::cout<<std::endl;
+}
+
+char Pantalla::pedirOpcionAUser(){
+	char opcionUser;
+	std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
+	std::cin >>opcionUser;
+	std::cout<<std::endl;
+	return opcionUser;
+}
+
