@@ -151,7 +151,8 @@ uint Destapador::destaparCasillaNoVacia(char valorCasilla)
   	
 	if(valorCasilla == MINA)
 	{
-		puntaje = PERDIO_PARTIDA;	
+		puntaje = PERDIO_PARTIDA;
+		mapa->decrementarMinasPorDescubrir();
 	}
 	
 	return puntaje;
