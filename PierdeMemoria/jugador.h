@@ -3,7 +3,7 @@
 # include "jugada.h"
 # include "mapa.h"
 # include "constantes.h"
-
+# include "pantalla.h"
 
 class Jugador {
 private:
@@ -29,14 +29,10 @@ private:
 	
 	bool PreguntarSiQuiereModificarJugadas();
 
-
 	bool validarOpcionUser(char opcionUser);
-	bool validarOpcionUserConfirmacion(char opcionUser);
-	/*
-	char pedirOpcionUser();
 
-	*/
-	
+	bool validarOpcionUserConfirmacion(char opcionUser);
+
 
 public:
 	/* Pre: Recibe una letra, futuro alias del jugador a crear, y un puntero al mapa de juego.
