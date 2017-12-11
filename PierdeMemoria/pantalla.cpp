@@ -104,7 +104,7 @@ void Pantalla::mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
 
 void Pantalla::noHayJugadas(){
 
-	std::cout<<"no hay jugadas para rehacer desde este punto"<<std::endl;
+	std::cout<<"No hay jugadas para deshacer desde este punto"<<std::endl;
 }
 
 
