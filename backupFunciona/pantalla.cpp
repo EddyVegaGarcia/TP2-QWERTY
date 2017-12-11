@@ -251,3 +251,12 @@ uint Pantalla::pedirCantidadJugadores(){
 	std::cout<<std::endl;
 	return cantidadUser;
 }
+
+
+/////////////////////////////////////
+/// Llamados desde AntiDestapador ///
+/////////////////////////////////////
+
+void Pantalla::imprimirJugadorRevive(char alias){
+	std::cout<<".:JUGADOR " <<alias<<" REVIVE!!!:."<<std::endl;
+}
