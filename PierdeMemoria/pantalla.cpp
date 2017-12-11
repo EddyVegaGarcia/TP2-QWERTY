@@ -21,45 +21,54 @@ char Pantalla::pedirOpcionPasadoFuturo (){
    	return opcionDeUsuario;
  }
 
-int Pantalla::pedirOpcionRehacerJugada(PseudoGrafo<JugadaLight*>* jugadas){
-	uint contador = 1;
-	uint opcionUsuario = 0;
+// Listar Jugadas al rehacer
 
-	JugadaLight* actual;
-
-	if(jugadas->avanzarCursor())
-        do {
-		std::cout<<"jugadas realizadas desde este punto: "<<std::endl;
-
-		actual = jugadas->obtenerDatoActual();
-
-		std::cout<<"jugada 1: ";
-		std::cout<<"fila: "<<actual->obtenerFila()<<" columna: "<<actual->obtenerColumna()
-				<<" opcion: "<<actual->obtenerOpcion()<<std::endl;
-
-		while(jugadas->avanzarCursorAParalela()){
-			contador++;
-			actual=jugadas->obtenerDatoActual();
-			std::cout<<"jugada "<<contador<<": ";
-			std::cout<<"fila: "<<actual->obtenerFila()<<" columna: "<<actual->obtenerColumna()
-				<<" opcion: "<<actual->obtenerOpcion()<<std::endl;
-		}
-		jugadas->retrocederCursor();
-
-		std::cout<<std::endl<<"elija una de las jugadas para rehacer"<<std::endl;
-		std::cin>>opcionUsuario;
-
-        }while (opcionUsuario < 1|| opcionUsuario > contador);
-	
-  	return opcionUsuario;
+// privados
+void Pantalla::mostrarJugada(int fila, int columna,char opcion){
+	std::cout<<"fila: "<<fila<<" columna: "<<columna<<" opcion: "<<opcion<<std::endl;
 }
+
+void Pantalla::mostrarEncabezadoJugada(){
+	std::cout<<"jugadas realizadas desde este punto: "<<std::endl;
+	std::cout<<"jugada 1: ";
+}
+
+void Pantalla::mostrarEncabezadoJugadaParalela(uint contador){
+	std::cout<<"jugada "<<contador<<": ";
+}
+
+// públicos
+void Pantalla::mostrarJugadaActual(int fila, int columna,char opcion){
+	Pantalla pantalla;
+	pantalla.mostrarEncabezadoJugada();
+	pantalla.mostrarJugada(fila,columna,opcion);
+}
+
+void Pantalla::listarJugadasDisponibles(int fila, int columna,char opcion, uint contador){
+	Pantalla pantalla;
+	pantalla.mostrarEncabezadoJugadaParalela(contador);
+	pantalla.mostrarJugada(fila,columna,opcion);
+}
+
+
+
+uint Pantalla::pedirJugadaARehacer(){
+
+	uint opcionUsuario;
+	std::cout<<std::endl<<"elija una de las jugadas para rehacer"<<std::endl;
+	std::cin>>opcionUsuario;
+
+	return opcionUsuario;
+}
+
+
+
 void Pantalla::noSePuedeRetroceder(){
     std::cout<<"no se puede retroceder mas"<<std::endl;
 
 }
 
 void Pantalla::mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje){
-
 	std::cout<<std::endl;
 	std::cout<<".:EL JUGADOR " << alias << " OBTUVO SU GAME OVER:. "<<std::endl;
 	std::cout<< "PUNTAJE OBTENIDO: " << puntaje << std::endl;
@@ -74,11 +83,13 @@ void Pantalla::terminoLaPartida(){
 
 }
 
-void Pantalla::noHayJugadas(){
-
+void Pantalla::noHayJugadasParaDeshacer(){
 	std::cout<<"No hay jugadas para deshacer desde este punto"<<std::endl;
 }
 
+void Pantalla::noHayJugadasParaRehacer(){
+	std::cout<<"No hay jugadas para rehacer desde este punto"<<std::endl;
+}
 
 void Pantalla::imprimirFelicitacionesGanador(){
 	std::cout<<"FELICITACIONES!! El jugador ganador es:"<<std::endl;
@@ -90,6 +101,10 @@ void Pantalla::imprimirFelicitacionesGanadores(){
 
 void Pantalla::imprimirFelicitacionesHaGanado(char alias, int puntaje){
 	std::cout<<alias<<" puntaje: "<<puntaje<<std::endl;
+}
+
+void Pantalla::imprimirPuntajeDeJugador(char alias,int puntaje){
+	std::cout<<"El jugador: " << alias << " tiene " << puntaje << " puntos." << std::endl;
 }
 
 
@@ -276,6 +291,7 @@ char Pantalla::pedirOpcionAUser(){
 	std::cout<<std::endl;
 	return opcionUser;
 }
+
 
 /////////////////////////////////////
 /// Llamados desde AntiDestapador ///
