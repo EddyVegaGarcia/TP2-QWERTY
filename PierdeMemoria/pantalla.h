@@ -20,7 +20,11 @@ class Pantalla{
 
 		char pedirOpcionPasadoFuturo();
 
-		int pedirOpcionRehacerJugada(PseudoGrafo<JugadaLight*>* jugadas);
+		void mostrarJugadaActual(int fila, int columna,char opcion);
+
+		void listarJugadasDisponibles(int fila, int columna,char opcion, uint contador);
+
+		uint pedirJugadaARehacer();
 
 		void noSePuedeRetroceder();
 
@@ -84,6 +88,12 @@ class Pantalla{
 		void imprimirDatosIngresados(uint dimFila, uint dimColumna, std::string dificultadPalabra,
 				int numeroDeMinas, uint cantJugadores);
 
+
+		void mostrarJugada(int fila, int columna,char opcion);
+
+		void mostrarEncabezadoJugada();
+
+		void mostrarEncabezadoJugadaParalela(uint contador);
 
 };
 #endif
