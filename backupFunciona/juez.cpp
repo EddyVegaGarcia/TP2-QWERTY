@@ -209,7 +209,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 
 		jugadorActual->asignarEstado(NO_ESTA_JUGANDO);
 
-		pantalla.mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual);
+		pantalla.mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual->obtenerAlias(),jugadorActual->obtenerPuntaje());
 		
 	}
 
