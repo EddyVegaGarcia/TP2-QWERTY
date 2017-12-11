@@ -24,7 +24,7 @@ class Pantalla{
 
 		void noSePuedeRetroceder();
 
-		void mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual);
+		void mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje);
 
 		void terminoLaPartida();
 
