@@ -54,6 +54,7 @@ bool Jugador::poseePuntajeSuficiente(){
 	return(this->puntaje>=PUNTAJE_NECESARIO_PARA_JUGADAS_ESPECIALES);
 }
 
+// métodos públicos
 void Jugador::iniciarJugada(){
 	Pantalla pantalla;
 	uint filaUser, columnaUser;
