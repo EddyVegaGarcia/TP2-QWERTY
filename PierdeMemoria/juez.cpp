@@ -143,7 +143,7 @@ void Juez::inicializarJuego(){
 	Pantalla pantalla;
 	
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
-	this->minasPorDescubrir=tableroDeJuego->obtenerTamanioDeLaListaDeMinas();
+	this->minasPorDescubrir=tableroDeJuego->obtenerMinasPorDescubrir();
 
 	uint banderasCorrectas = 0;
 
@@ -205,7 +205,6 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 	if(jugadorActual->obtenerEstado() == PERDIO_PARTIDA){
 
 		this->jugadoresQuePerdieron++;
-		this->minasPorDescubrir--;
 
 		jugadorActual->asignarEstado(NO_ESTA_JUGANDO);
 
@@ -219,6 +218,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 	this->jugadas->insertar(jugadaLiviana);
 
 	this->casillasOcultas=tableroDeJuego->obtenerCantidadDeCasillasOcultas();
+	this->minasPorDescubrir=tableroDeJuego->obtenerMinasPorDescubrir();
 
 	this->tableroDeJuego->mostrarMapa();
 
@@ -284,7 +284,6 @@ bool Juez::deshacerJugada(){
 		bool revive = inverso.tapar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
 		if (revive){
 			this->jugadoresQuePerdieron--;
-			this->minasPorDescubrir++;
 		}
 	}
 
@@ -349,7 +348,10 @@ void Juez::rehacerParalela(uint posicion){
 
 	}else if (opcion == 'd' || opcion == 'D'){
 		Destapador destapador(tableroDeJuego);
-		destapador.destapar(jugadaARehacer->obtenerFila(),jugadaARehacer->obtenerColumna());
+		uint perdio = destapador.destapar(jugadaARehacer->obtenerFila(),jugadaARehacer->obtenerColumna());
+		if (perdio){
+			this->jugadoresQuePerdieron++;
+		}
 	}
 
 }
