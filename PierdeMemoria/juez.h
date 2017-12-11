@@ -78,6 +78,10 @@ class Juez{
 		bool rehacerJugada();
 
 		void rehacerParalela(uint posicion);
+
+		void mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
+											int puntajeMaximo,int puntajesMaximosIguales);
+
 };
 
 #endif /* JUEZ_H_ */
