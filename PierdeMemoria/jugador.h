@@ -64,6 +64,9 @@ public:
 	void asignarEstado(int estado);
 
 
+	/* Post: devuelve si el jugador posee o no el puntaje suficiente para realizar JUGADAS ESPECIALES. */
+	bool poseePuntajeSuficiente();
+
 
 
 	/* Pre: 
