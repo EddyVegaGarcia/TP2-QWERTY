@@ -28,7 +28,7 @@ bool AntiDestapador::puntajeAltapar(){
 
 			if(valorCasilla==MINA){
 				this->jugador->asignarEstado(SIGUE_JUGANDO);
-				std::cout<<".:JUGADOR " <<this->jugador->obtenerAlias()<<" REVIVE!!!:."<<std::endl;
+				pantalla.imprimirJugadorRevive(this->jugador->obtenerAlias());
 			}
 			this->mapa->eliminarCasillaDestapada(this->fila, this->columna);
 			revive = taparCasillaNoVacia(valorCasilla);
