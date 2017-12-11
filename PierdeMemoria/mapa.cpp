@@ -14,6 +14,8 @@ Mapa::Mapa(uint filaRecibida, uint columnaRecibida, char dificultadRecibida){
 	Minero minero(dimFila,dimColumna,dificultad,pMinas);
 	minero.sembrarMinas();
 
+	this->minasPorDescubrir=this->obtenerTamanioDeLaListaDeMinas();
+
 	diseniador.modificarCantidadDeFilas(filaRecibida);
 	diseniador.modificarCantidadDeColumnas(columnaRecibida);
 	diseniador.crearDisenioBase();
@@ -25,6 +27,21 @@ Mapa::~Mapa(){
 	delete pCasillasDestapadas;
 	delete pBanderas;
 }
+
+
+void Mapa::incrementarMinasPorDescubrir(){
+	this->minasPorDescubrir++;
+}
+
+void Mapa::decrementarMinasPorDescubrir(){
+	this->minasPorDescubrir--;
+}
+
+uint Mapa::obtenerMinasPorDescubrir(){
+	return this->minasPorDescubrir;
+}
+
+
 
 uint Mapa::obtenerFila(){
 	return this->dimFila;
