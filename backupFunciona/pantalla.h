@@ -13,7 +13,9 @@
 class Pantalla{
 
 	public:
-
+	
+		// Llamados desde Juez:
+	
 		void playGame();
 
 		char pedirOpcionPasadoFuturo();
@@ -30,6 +32,15 @@ class Pantalla{
 				int puntajeMaximo,uint puntajesMaximosIguales);
 
 		void noHayJugadas();
+	
+		void imprimirEncabezadoUnicoGanador();
+
+		void imprimirEncabezadoGanadores();
+
+		void imprimirFelicitacionesHaGanado(char alias, int puntaje);
+
+		
+		// Llamados desde Menú:
 
 		char imprimirOpcionesDeMenu();
 
