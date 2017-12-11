@@ -47,6 +47,10 @@ class Pantalla{
 
 		uint pedirCantidadJugadores();
 	
+	
+		void imprimirJugadorRevive(char alias);
+
+	
 	private:
 	
 		void imprimirLinea();
