@@ -301,18 +301,35 @@ bool Juez::deshacerJugada(){
 }
 
 bool Juez::rehacerJugada(){
-	
-	uint opcionUsuario;
 	Pantalla pantalla;
 
-	opcionUsuario = pantalla.pedirOpcionRehacerJugada(this->jugadas);
-	
-	if (opcionUsuario !=0)
-		rehacerParalela(opcionUsuario);
+	JugadaLight* actual;
+
+	uint opcionUsuario = 0;
+	uint contador = 1;
+
+	if(jugadas->avanzarCursor())
+		do {
+			actual = this->jugadas->obtenerDatoActual();
+			pantalla.mostrarJugadaActual(actual->obtenerFila(),actual->obtenerColumna(),actual->obtenerOpcion());
+
+			while(this->jugadas->avanzarCursorAParalela()){
+				contador++;
+				actual=this->jugadas->obtenerDatoActual();
+				pantalla.listarJugadasDisponibles(actual->obtenerFila(),actual->obtenerColumna(),
+													actual->obtenerOpcion(),contador);
+			}
+			this->jugadas->retrocederCursor();
+
+			opcionUsuario = pantalla.pedirJugadaARehacer();
+		} while (opcionUsuario < 1|| opcionUsuario > contador);
+
+	if (opcionUsuario !=0){
+			rehacerParalela(opcionUsuario);
+	}
+
 	return (opcionUsuario != 0);
-
 }
-
 void Juez::rehacerParalela(uint posicion){
 
 	JugadaLight* jugadaARehacer;
@@ -336,6 +353,7 @@ void Juez::rehacerParalela(uint posicion){
 	}
 
 }
+
 
 uint Juez::buscarBanderasCorrectas(){
 
