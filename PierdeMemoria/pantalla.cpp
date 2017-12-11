@@ -58,12 +58,8 @@ void Pantalla::noSePuedeRetroceder(){
 
 }
 
-void Pantalla::mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual){
+void Pantalla::mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje){
 
-	int puntaje = 0;
-	char alias;
-	alias = jugadorActual->obtenerAlias();
-	puntaje = jugadorActual->obtenerPuntaje();
 	std::cout<<std::endl;
 	std::cout<<".:EL JUGADOR " << alias << " OBTUVO SU GAME OVER:. "<<std::endl;
 	std::cout<< "PUNTAJE OBTENIDO: " << puntaje << std::endl;
@@ -77,34 +73,23 @@ void Pantalla::terminoLaPartida(){
 	std::cout<<std::endl;
 
 }
-void Pantalla::mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
-		int puntajeMaximo,uint puntajesMaximosIguales){
-
-	if(puntajesMaximosIguales == 1){
-		std::cout<<"FELICITACIONES!! El jugador ganador es:"<<std::endl;
-	}
-	else std::cout<<"EMPATE! Los jugadores ganadores son:"<<std::endl;
-
-	jugadores->inicializarCursor();
-
-	uint jugadoresImpresos = 0;
-	Jugador* actual;
-
-	while(jugadores->avanzarCursor() && jugadoresImpresos<puntajesMaximosIguales){
-
-		actual = jugadores->obtenerCursor();
-
-		if(actual->obtenerPuntaje() == puntajeMaximo)	{
-
-			std::cout<<actual->obtenerAlias()<<" puntaje: "<<actual->obtenerPuntaje()<<std::endl;
-			jugadoresImpresos++;
-		}
-	}
-}
 
 void Pantalla::noHayJugadas(){
 
 	std::cout<<"No hay jugadas para deshacer desde este punto"<<std::endl;
+}
+
+
+void Pantalla::imprimirFelicitacionesGanador(){
+	std::cout<<"FELICITACIONES!! El jugador ganador es:"<<std::endl;
+}
+
+void Pantalla::imprimirFelicitacionesGanadores(){
+	std::cout<<"EMPATE! Los jugadores ganadores son:"<<std::endl;
+}
+
+void Pantalla::imprimirFelicitacionesHaGanado(char alias, int puntaje){
+	std::cout<<alias<<" puntaje: "<<puntaje<<std::endl;
 }
 
 
