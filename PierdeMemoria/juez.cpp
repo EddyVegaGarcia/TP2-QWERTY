@@ -196,7 +196,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 
 }
 
-void Juez::realizarCambios(){
+void Juez::realizarCambios(Jugador* jugadorActual){
 
 	Pantalla pantalla;
 	
