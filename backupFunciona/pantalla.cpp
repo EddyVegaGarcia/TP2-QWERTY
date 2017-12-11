@@ -71,30 +71,6 @@ void Pantalla::terminoLaPartida(){
 	std::cout<<std::endl;
 
 }
-void Pantalla::mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
-		int puntajeMaximo,uint puntajesMaximosIguales){
-
-	if(puntajesMaximosIguales == 1){
-		std::cout<<"FELICITACIONES!! El jugador ganador es:"<<std::endl;
-	}
-	else std::cout<<"EMPATE! Los jugadores ganadores son:"<<std::endl;
-
-	jugadores->inicializarCursor();
-
-	uint jugadoresImpresos = 0;
-	Jugador* actual;
-
-	while(jugadores->avanzarCursor() && jugadoresImpresos<puntajesMaximosIguales){
-
-		actual = jugadores->obtenerCursor();
-
-		if(actual->obtenerPuntaje() == puntajeMaximo)	{
-
-			std::cout<<actual->obtenerAlias()<<" puntaje: "<<actual->obtenerPuntaje()<<std::endl;
-			jugadoresImpresos++;
-		}
-	}
-}
 
 void Pantalla::noHayJugadas(){
 
