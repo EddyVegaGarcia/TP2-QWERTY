@@ -190,11 +190,6 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 	jugadorActual->iniciarJugada();
 	jugadaActual = jugadorActual->obtenerPJugada();
 
-	if(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
-
-		jugadorActual->modificarPuntaje(COSTO_MODIFICAR);
-	}
-	
 	while(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
 
 		realizarCambios(jugadorActual);
@@ -234,7 +229,7 @@ void Juez::realizarCambios(Jugador* jugadorActual){
 
 	NodoGrafo<JugadaLight*>* actual= this->jugadas->obtenerActual();
 
-	while (!terminoDeHacerCambios &&  puedeHacerCambios ){
+	while (!terminoDeHacerCambios &&  puedeHacerCambios && jugadorActual->poseePuntajeSuficiente()){
 
 		opcionDeUsuario = pantalla.pedirOpcionPasadoFuturo();
 
@@ -254,6 +249,11 @@ void Juez::realizarCambios(Jugador* jugadorActual){
 		}
 		else terminoDeHacerCambios = true;
 	}
+	
+	if (!(jugadorActual->poseePuntajeSuficiente())){
+		pantalla.puntajeInsuficiente();
+	}
+
 
 }
 
