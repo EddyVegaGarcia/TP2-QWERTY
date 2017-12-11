@@ -169,7 +169,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 	
 	while(jugadorActual->obtenerEstado() == REALIZANDO_CAMBIOS){
 
-		realizarCambios();
+		realizarCambios(jugadorActual);
 		jugadorActual->iniciarJugada();
 		jugadaActual = jugadorActual->obtenerPJugada();
 	}
