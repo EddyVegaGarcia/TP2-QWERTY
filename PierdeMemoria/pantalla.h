@@ -47,6 +47,20 @@ class Pantalla{
 
 		uint pedirCantidadJugadores();
 	
+	
+		// llamados desde Jugador:
+	
+		void imprimirTurno(char alias);
+
+		char verSiQuiereModificarJugadas();
+
+		void puntajeInsuficiente();
+
+		void pedirUbicacionAUser(uint &fila, uint &columna);
+
+		char pedirOpcionAUser();
+
+	
 	private:
 	
 		void imprimirLinea();
