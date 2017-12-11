@@ -58,8 +58,7 @@ void Juez::avanzarJugador(){
 
 void Juez::encontrarJugadorQueGanoPorPuntaje(){
 	
-	Pantalla pantalla;
-	jugadores->inicializarCursor();
+	this->jugadores->inicializarCursor();
 
 	int puntajeMaximo = PUNTAJE_MINIMO;
 
@@ -70,7 +69,7 @@ void Juez::encontrarJugadorQueGanoPorPuntaje(){
 	while(this->jugadores->avanzarCursor() && (puntajesMostrados < this->cantidadDeJugadores) ){
 
 		Jugador* jugadorActual;
-		jugadorActual = jugadores->obtenerCursor();
+		jugadorActual = this->jugadores->obtenerCursor();
 		if(jugadorActual->obtenerPuntaje() > puntajeMaximo){
 			puntajeMaximo = jugadorActual->obtenerPuntaje();
 			puntajesMaximosIguales=1;
@@ -81,10 +80,39 @@ void Juez::encontrarJugadorQueGanoPorPuntaje(){
 
 	}
 
-	pantalla.mostrarFelicitaciones(jugadores,puntajeMaximo, puntajesMaximosIguales);
+	this->mostrarFelicitaciones(this->jugadores,puntajeMaximo, puntajesMaximosIguales);
 
-	
 }
+
+void Juez::mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
+									int puntajeMaximo,int puntajesMaximosIguales){
+
+	Pantalla pantalla;
+
+	if(puntajesMaximosIguales == 1){
+		pantalla.imprimirFelicitacionesGanador();
+	}
+	else pantalla.imprimirFelicitacionesGanadores();
+
+	jugadores->inicializarCursor();
+
+	uint jugadoresImpresos = 0;
+	Jugador* actual;
+
+	while(jugadores->avanzarCursor() && jugadoresImpresos<puntajesMaximosIguales){
+
+		actual = jugadores->obtenerCursor();
+
+		if(actual->obtenerPuntaje() == puntajeMaximo)	{
+			pantalla.imprimirFelicitacionesHaGanado(actual->obtenerAlias(),actual->obtenerPuntaje());
+			jugadoresImpresos++;
+		}
+	}
+
+
+}
+
+
 void Juez::crearArchivoConPuntajes(){
 
 	std::ofstream puntajes(archivoDePuntajes);
@@ -181,7 +209,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 
 		jugadorActual->asignarEstado(NO_ESTA_JUGANDO);
 
-		pantalla.mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual);
+		pantalla.mostrarPuntajeDeJugadorQueHaPerdido(jugadorActual->obtenerAlias(),jugadorActual->obtenerPuntaje());
 		
 	}
 
