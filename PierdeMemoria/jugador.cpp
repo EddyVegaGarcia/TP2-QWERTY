@@ -50,11 +50,14 @@ bool Jugador::validarOpcionUser( char opcionUser)
 	return (opcionUser != 'd' && opcionUser != 'D' && opcionUser != 'm' && opcionUser != 'M' && opcionUser != 'r' && opcionUser != 'R');
 }
 
-bool Jugador::validarOpcionUserConfirmacion(char opcionUser)
-{
+bool Jugador::validarOpcionUserConfirmacion(char opcionUser){
 	return((opcionUser != 's') && (opcionUser != 'S') && (opcionUser != 'n') && (opcionUser != 'N'));
 }
 
+bool Jugador::poseePuntajeSuficiente(){
+
+	return(this->puntaje>=PUNTAJE_NECESARIO_PARA_JUGADAS_ESPECIALES);
+}
 
 void Jugador::iniciarJugada(){
 	uint filaUser, colUser;
@@ -67,7 +70,7 @@ void Jugador::iniciarJugada(){
 	std::cout<<std::endl;
 
 
-	if(this->puntaje>=PUNTAJE_NECESARIO_PARA_JUGADAS_ESPECIALES)
+	if(this->poseePuntajeSuficiente())
 		quiereModificarJugadas = PreguntarSiQuiereModificarJugadas();
 	else std::cout<<"Puntaje insuficiente para realizar JUGADAS ESPECIALES"<<std::endl;
 
@@ -103,7 +106,6 @@ void Jugador::iniciarJugada(){
 		else if (puntos == SE_RETIRO)
 			this->asignarEstado(SE_RETIRO);
 		else{
-			//puntos += obtenerPuntaje();
 			this->modificarPuntaje(puntos);
 			this->asignarEstado(SIGUE_JUGANDO);
 		}
