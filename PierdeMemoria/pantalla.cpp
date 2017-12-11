@@ -277,3 +277,10 @@ char Pantalla::pedirOpcionAUser(){
 	return opcionUser;
 }
 
+/////////////////////////////////////
+/// Llamados desde AntiDestapador ///
+/////////////////////////////////////
+
+void Pantalla::imprimirJugadorRevive(char alias){
+	std::cout<<".:JUGADOR " <<alias<<" REVIVE!!!:."<<std::endl;
+}
