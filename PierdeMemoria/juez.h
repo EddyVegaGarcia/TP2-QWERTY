@@ -71,7 +71,7 @@ class Juez{
 
 		bool banderaEsCorrecta(Bandera actual,Lista<Mina>* minas);
 
-		void realizarCambios(Jugador* jugadorActual)
+		void realizarCambios(Jugador* jugadorActual);
 
 		bool deshacerJugada();
 
