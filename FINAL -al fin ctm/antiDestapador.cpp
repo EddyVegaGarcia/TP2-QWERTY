@@ -9,17 +9,16 @@ AntiDestapador::AntiDestapador(Mapa* mapaActual,Jugador* jugador){
 
 }
 
-uint AntiDestapador::tapar(uint filaJugada,uint columnaJugada)
-{
-	uint puntaje = 0;
+bool AntiDestapador::tapar(uint filaJugada,uint columnaJugada){
 	this->fila = filaJugada;
  	this->columna = columnaJugada;
-	puntaje = this->puntajeAltapar();
+	bool puntaje = this->puntajeAltapar();
 	return puntaje;
 }
 
-int AntiDestapador::puntajeAltapar(){
-	int puntaje=0;
+bool AntiDestapador::puntajeAltapar(){
+	Pantalla pantalla;
+	bool revive=false;
 	if(this->mapa->estaDestapadaLaCasilla(this->fila, this->columna)){
 		char valorCasilla = mapa->obtenerValorCasilla(this->fila, this->columna);
 
@@ -28,14 +27,15 @@ int AntiDestapador::puntajeAltapar(){
 		}
 		else{
 
-			if(valorCasilla==MINA)
-			this->jugador->asignarEstado(SIGUE_JUGANDO);
-
+			if(valorCasilla==MINA){
+				this->jugador->asignarEstado(SIGUE_JUGANDO);
+				pantalla.imprimirJugadorRevive(this->jugador->obtenerAlias());
+			}
 			this->mapa->eliminarCasillaDestapada(this->fila, this->columna);
-			puntaje = taparCasillaNoVacia(valorCasilla);
+			revive = taparCasillaNoVacia(valorCasilla);
 		}
 	}
-	return puntaje;
+	return revive;
 }
 
 bool AntiDestapador::validarUbicacion(uint fila, uint columna){
@@ -54,17 +54,9 @@ void AntiDestapador::taparPandemia(){
 
 }
 
-uint AntiDestapador::taparCasillaNoVacia(char valorCasilla)
-{
+// devuelve true si se "antidestapa" una mina, es decir si un jugador revive
+bool AntiDestapador::taparCasillaNoVacia(char valorCasilla){
 
-	uint puntaje = 0;
-
-	if(valorCasilla == MINA)
-	{
-		puntaje = PERDIO_PARTIDA;
-	}
-
-	return puntaje;
-
+	return (valorCasilla == MINA);
 
 }
