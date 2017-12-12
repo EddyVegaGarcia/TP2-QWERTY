@@ -60,45 +60,41 @@ bool Jugador::poseePuntajeSuficiente(){
 }
 
 void Jugador::iniciarJugada(){
-	uint filaUser, colUser;
+	Pantalla pantalla;
+	uint filaUser, columnaUser;
+
 	bool quiereModificarJugadas = false;
 	char opcionUser;
 	int puntos = 0;
 
-	std::cout<<std::endl;
-	std::cout << "TURNO JUGADOR: \t"<< this->alias << std::endl;
-	std::cout<<std::endl;
-
+	pantalla.imprimirTurno(this->alias);
 
 	if(this->poseePuntajeSuficiente())
 		quiereModificarJugadas = PreguntarSiQuiereModificarJugadas();
-	else std::cout<<"Puntaje insuficiente para realizar JUGADAS ESPECIALES"<<std::endl;
+	else pantalla.puntajeInsuficiente();
 
 
 	if (quiereModificarJugadas){
-
 		this->asignarEstado(REALIZANDO_CAMBIOS);
 	}
 	else{
 		do{
+			pantalla.pedirUbicacionAUser(filaUser, columnaUser);
 
-			std::cout<<"Ingrese fila y columna a jugar: "<<std::endl;
-			std::cin>>filaUser>>colUser;
-			std::cout<<std::endl;
-
-		} while( (filaUser<1 || filaUser> mapa->obtenerFila()) || (colUser<1 || colUser > mapa->obtenerColumna()));
+		} while( (filaUser<1 || filaUser> mapa->obtenerFila()) ||
+				(columnaUser<1 || columnaUser > mapa->obtenerColumna()));
 
 
 		do{
-			std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
-			std::cin >>opcionUser;
-			std::cout<<std::endl;
+			opcionUser=pantalla.pedirOpcionAUser();
 		}while(this->validarOpcionUser(opcionUser));
 
 
 		this->pJugada->asignarOpcion(opcionUser);
 		this->pJugada->asignarFila(filaUser);
-		this->pJugada->asignarColumna(colUser);
+		this->pJugada->asignarColumna(columnaUser);
+
+
 		puntos = this->pJugada->realizarJugada();
 
 		if (puntos == PERDIO_PARTIDA)
@@ -114,12 +110,11 @@ void Jugador::iniciarJugada(){
 }
 
 bool Jugador::PreguntarSiQuiereModificarJugadas(){
-
+	Pantalla pantalla;
 	char opcionUser;
+
 	do{
-		std::cout<<"\t.:JUGADA ESPECIAL:.\t.:DESHACER/REHACER"<<std::endl;
-		std::cout<<"Se le restaran "<< COSTO_MODIFICAR << " puntos - CONFIRMAR (S/N) : "<<std::endl;
-		std::cin>>opcionUser;
+		opcionUser=pantalla.verSiQuiereModificarJugadas();
 	}while(this->validarOpcionUserConfirmacion(opcionUser));
 
 	return ((opcionUser == 's') || (opcionUser == 'S'));
