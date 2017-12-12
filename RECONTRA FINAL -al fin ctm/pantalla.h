@@ -67,7 +67,8 @@ class Pantalla{
 
 		char pedirOpcionAUser();
 
-
+		//Llamados desde antidestapador:
+	
 		void imprimirJugadorRevive(char alias);
 
 
