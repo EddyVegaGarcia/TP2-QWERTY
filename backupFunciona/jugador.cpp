@@ -79,8 +79,10 @@ void Jugador::iniciarJugada(){
 	}
 	else{
 		do{
-			pantalla.pedirUbicacionAUser(filaUser, columnaUser);
-
+			std::cout<<"Ingrese fila y columna a jugar: "<<std::endl;
+			std::cin>>filaUser>>columnaUser;
+			std::cout<<std::endl;			
+			
 		} while( (filaUser<1 || filaUser> mapa->obtenerFila()) ||
 				(columnaUser<1 || columnaUser > mapa->obtenerColumna()));
 
