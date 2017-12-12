@@ -3,6 +3,7 @@
 # include "jugada.h"
 # include "mapa.h"
 # include "constantes.h"
+# include "pantalla.h"
 
 
 class Jugador {
