@@ -68,7 +68,7 @@ class Pantalla{
 		char pedirOpcionAUser();
 
 
-		void imprimirJugadorRevive(char alias); // este revive creo que estaba pero mas
+		void imprimirJugadorRevive(char alias);
 
 
 	private:
