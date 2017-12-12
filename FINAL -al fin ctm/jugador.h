@@ -3,6 +3,7 @@
 # include "jugada.h"
 # include "mapa.h"
 # include "constantes.h"
+# include "pantalla.h"
 
 
 class Jugador {
@@ -63,6 +64,8 @@ public:
 	 * SIGUE_JUGANDO, SE_RETIRO, PERDIO_PARTIDA, HA_GANADO, NO_ESTA_JUGANDO.*/
 	void asignarEstado(int estado);
 
+	/* Post: devuelve si el jugador posee o no el puntaje suficiente para realizar JUGADAS ESPECIALES. */
+	bool poseePuntajeSuficiente();
 
 
 
