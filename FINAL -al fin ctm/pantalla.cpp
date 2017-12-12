@@ -58,17 +58,12 @@ void Pantalla::noSePuedeRetroceder(){
 
 }
 
-void Pantalla::mostrarPuntajeDeJugadorQueHaPerdido(Jugador* jugadorActual){
-
-	int puntaje = 0;
-	char alias;
-	alias = jugadorActual->obtenerAlias();
-	puntaje = jugadorActual->obtenerPuntaje();
+void Pantalla::mostrarPuntajeDeJugadorQueHaPerdido(char alias, int puntaje){
 	std::cout<<std::endl;
 	std::cout<<".:EL JUGADOR " << alias << " OBTUVO SU GAME OVER:. "<<std::endl;
 	std::cout<< "PUNTAJE OBTENIDO: " << puntaje << std::endl;
-
 }
+
 
 void Pantalla::terminoLaPartida(){
 
@@ -77,35 +72,26 @@ void Pantalla::terminoLaPartida(){
 	std::cout<<std::endl;
 
 }
-void Pantalla::mostrarFelicitaciones(ListaCircularCursor<Jugador*>* jugadores,
-		int puntajeMaximo,uint puntajesMaximosIguales){
 
-	if(puntajesMaximosIguales == 1){
-		std::cout<<"FELICITACIONES!! El jugador ganador es:"<<std::endl;
-	}
-	else std::cout<<"EMPATE! Los jugadores ganadores son:"<<std::endl;
-
-	jugadores->inicializarCursor();
-
-	uint jugadoresImpresos = 0;
-	Jugador* actual;
-
-	while(jugadores->avanzarCursor() && jugadoresImpresos<puntajesMaximosIguales){
-
-		actual = jugadores->obtenerCursor();
-
-		if(actual->obtenerPuntaje() == puntajeMaximo)	{
-
-			std::cout<<actual->obtenerAlias()<<" puntaje: "<<actual->obtenerPuntaje()<<std::endl;
-			jugadoresImpresos++;
-		}
-	}
-}
 
 void Pantalla::noHayJugadas(){
 
 	std::cout<<"no hay jugadas para rehacer desde este punto"<<std::endl;
 }
+
+
+void Pantalla::imprimirEncabezadoUnicoGanador(){
+	std::cout<<"FELICITACIONES!! El jugador ganador es:"<<std::endl;
+}
+
+void Pantalla::imprimirEncabezadoGanadores(){
+	std::cout<<"EMPATE! Los jugadores ganadores son:"<<std::endl;
+}
+
+void Pantalla::imprimirFelicitacionesHaGanado(char alias, int puntaje){
+	std::cout<<alias<<" puntaje: "<<puntaje<<std::endl;
+}
+
 
 
 ////////////////////////////////////
@@ -251,3 +237,45 @@ uint Pantalla::pedirCantidadJugadores(){
 	std::cout<<std::endl;
 	return cantidadUser;
 }
+
+////////////////////////////////////
+///// Llamados desde Jugador ///////
+////////////////////////////////////
+
+void Pantalla::imprimirTurno(char alias){
+	std::cout<<std::endl;
+	std::cout << "TURNO JUGADOR: \t"<< alias << std::endl;
+	std::cout<<std::endl;
+}
+
+char Pantalla::verSiQuiereModificarJugadas(){
+
+	char opcionUser;
+	std::cout<<"\t.:JUGADA ESPECIAL:.\t.:DESHACER/REHACER"<<std::endl;
+	std::cout<<"Se le restarán "<< COSTO_MODIFICAR << " puntos - CONFIRMAR (S/N) : "<<std::endl;
+	std::cin>>opcionUser;
+
+	return opcionUser;
+
+}
+
+
+void Pantalla::puntajeInsuficiente(){
+	std::cout<<"Puntaje insuficiente para realizar JUGADAS ESPECIALES"<<std::endl;
+}
+
+void Pantalla::pedirUbicacionAUser(uint &fila, uint &columna){
+	std::cout<<"Ingrese fila y columna a jugar: "<<std::endl;
+	std::cin>>fila>>columna;
+	std::cout<<std::endl;
+}
+
+char Pantalla::pedirOpcionAUser(){
+	char opcionUser;
+	std::cout<<"ingrese 'd' (destapar) || 'm' (marcar) || 'r' retirarse "<<std::endl;
+	std::cin >>opcionUser;
+	std::cout<<std::endl;
+	return opcionUser;
+}
+
+
