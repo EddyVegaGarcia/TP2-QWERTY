@@ -4,6 +4,8 @@
 # include "mapa.h"
 # include "jugador.h"
 # include "constantes.h"
+# include "pantalla.h"
+
 
 
 class AntiDestapador{
@@ -19,15 +21,15 @@ public:
 
 	AntiDestapador(Mapa* mapaActual, Jugador* jugador);
 
-	uint tapar(uint filaJugada,uint columnaJugada);
+	bool tapar(uint filaJugada,uint columnaJugada);
 
-	int puntajeAltapar();
+	bool puntajeAltapar();
 
 	void crearListaCasillasYAsignarPuntero();
 
 	bool validarUbicacion(uint fila, uint columna);
 
-	uint taparCasillaNoVacia(char ValorCasilla);
+	bool taparCasillaNoVacia(char ValorCasilla);
 
 	void taparPandemia();
 
