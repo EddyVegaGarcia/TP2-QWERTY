@@ -202,7 +202,7 @@ void Juez::sigueJugando(Jugador* jugadorActual, Mapa* tableroDeJuego){
 
 	if(jugadorActual->obtenerEstado() == PERDIO_PARTIDA){
 
-		jugadoresQuePerdieron++;
+		this->jugadoresQuePerdieron++;
 		this->minasPorDescubrir--;
 
 		jugadorActual->asignarEstado(NO_ESTA_JUGANDO);
@@ -278,7 +278,11 @@ bool Juez::deshacerJugada(){
 
 	}else if (opcion == 'd' || opcion == 'D'){
 		AntiDestapador inverso(tableroDeJuego, jugadorActual);
-		inverso.tapar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
+		bool revive = inverso.tapar(jugadaADeshacer->obtenerFila(),jugadaADeshacer->obtenerColumna());
+		if (revive){
+			this->jugadoresQuePerdieron--;
+			this->minasPorDescubrir++;
+		}
 	}
 
 	this->jugadas->retrocederCursor();
